@@ -298,48 +298,136 @@
     </div>
 
     <!-- SUB-SCREEN 2B: ESCOVAÇÃO - PASSO A PASSO -->
-    <div id="screen-escovacao-passo" class="screen-content hidden space-y-6">
+    <div id="screen-escovacao-passo" class="screen-content hidden space-y-6 max-w-4xl mx-auto">
+      <!-- Header with Back Button -->
       <div class="flex items-center space-x-3">
-        <button onclick="navigateToScreen('screen-escovacao')" class="p-2.5 bg-white rounded-2xl shadow-sm text-slate-700 hover:bg-slate-100 transition-colors">
+        <button onclick="navigateToScreen('screen-escovacao')" class="p-2.5 bg-white rounded-2xl shadow-sm text-slate-700 hover:bg-slate-100 transition-colors flex items-center space-x-1">
           <i data-lucide="arrow-left" class="w-5 h-5"></i>
+          <span class="text-xs font-bold font-fredoka hidden sm:inline">Voltar</span>
         </button>
-        <h2 class="font-fredoka font-bold text-xl text-slate-800">Passo a Passo da Escovação</h2>
+        <div>
+          <h2 class="font-fredoka font-bold text-xl sm:text-2xl text-slate-800">Escovação</h2>
+          <p class="text-xs text-textMuted">Guia de passo a passo para uma higiene completa</p>
+        </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- 1. SECTION: FIO DENTAL -->
+      <div class="space-y-2">
+        <h3 class="font-fredoka font-bold text-slate-800 text-lg flex items-center space-x-2">
+          <span>🧵</span>
+          <span>Fio Dental</span>
+        </h3>
         
-        <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-100 flex items-start space-x-4">
-          <div class="w-10 h-10 rounded-2xl bg-brandLilacLight text-brandLilac font-bold font-fredoka flex items-center justify-center shrink-0">1</div>
-          <div>
-            <h3 class="font-fredoka font-bold text-slate-800 text-sm">Posição Confortável</h3>
-            <p class="text-xs text-textMuted mt-1 leading-relaxed">Acomode a criança no colo com a cabeça apoiada para boa visualização da boca.</p>
+        <div class="bg-white p-5 rounded-3xl shadow-sm border border-purple-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex-1">
+            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
+              Precisamos usar o fio dental antes de escovar os dentes, é ele que limpa onde a escova não alcança!
+            </p>
+          </div>
+          <!-- Reserved Image Placeholder for Canva Flossing Illustration -->
+          <div class="w-full sm:w-36 h-28 bg-brandLilacLight/70 border-2 border-dashed border-purple-300 rounded-2xl flex flex-col items-center justify-center text-center p-2 shrink-0">
+            <i data-lucide="image" class="w-6 h-6 text-brandLilac mb-1"></i>
+            <span class="text-[10px] font-bold text-brandLilac">Ilustração Fio Dental</span>
+            <span class="text-[9px] text-textMuted">(Asset Canva)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. SECTION: PASSO À PASSO -->
+      <div class="space-y-4">
+        <div>
+          <h3 class="font-fredoka font-bold text-slate-800 text-lg flex items-center space-x-2">
+            <span>🪥</span>
+            <span>Passo à Passo</span>
+          </h3>
+          <p class="text-xs text-textMuted mt-0.5">Siga as orientações para uma escovação eficaz!</p>
+        </div>
+
+        <!-- Reserved 3 Visual Areas for Canva Brushing Movement Illustrations -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div class="h-32 bg-emerald-50 border-2 border-dashed border-emerald-300 rounded-2xl flex flex-col items-center justify-center text-center p-3">
+            <i data-lucide="image" class="w-6 h-6 text-emerald-600 mb-1"></i>
+            <span class="text-xs font-bold text-emerald-800">Ilustração 1</span>
+            <span class="text-[10px] text-emerald-600">Movimentos Circulares</span>
+            <span class="text-[9px] text-textMuted">(Asset Canva)</span>
+          </div>
+
+          <div class="h-32 bg-sky-50 border-2 border-dashed border-sky-300 rounded-2xl flex flex-col items-center justify-center text-center p-3">
+            <i data-lucide="image" class="w-6 h-6 text-sky-600 mb-1"></i>
+            <span class="text-xs font-bold text-sky-800">Ilustração 2</span>
+            <span class="text-[10px] text-sky-600">Movimento Vai e Vem</span>
+            <span class="text-[9px] text-textMuted">(Asset Canva)</span>
+          </div>
+
+          <div class="h-32 bg-purple-50 border-2 border-dashed border-purple-300 rounded-2xl flex flex-col items-center justify-center text-center p-3">
+            <i data-lucide="image" class="w-6 h-6 text-brandLilac mb-1"></i>
+            <span class="text-xs font-bold text-purple-800">Ilustração 3</span>
+            <span class="text-[10px] text-purple-600">Varredura Interna</span>
+            <span class="text-[9px] text-textMuted">(Asset Canva)</span>
           </div>
         </div>
 
-        <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-100 flex items-start space-x-4">
-          <div class="w-10 h-10 rounded-2xl bg-brandLilacLight text-brandLilac font-bold font-fredoka flex items-center justify-center shrink-0">2</div>
-          <div>
-            <h3 class="font-fredoka font-bold text-slate-800 text-sm">Movimentos Suaves</h3>
-            <p class="text-xs text-textMuted mt-1 leading-relaxed">Faça movimentos circulares na frente e "vai e vem" na parte de mastigar dos dentes.</p>
+        <!-- Exactly 3 Brushing Instructions -->
+        <div class="space-y-3">
+          <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex items-start space-x-3">
+            <span class="w-6 h-6 bg-brandLilacLight text-brandLilac rounded-full font-fredoka font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">1</span>
+            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
+              1. Com a boca entreaberta escove a parte externa dos dentes com movimentos circulares
+            </p>
+          </div>
+
+          <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex items-start space-x-3">
+            <span class="w-6 h-6 bg-brandLilacLight text-brandLilac rounded-full font-fredoka font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">2</span>
+            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
+              2. Na parte de cima dos dentes, onde fazemos a mastigação, escove com movimentos de vai e vem
+            </p>
+          </div>
+
+          <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex items-start space-x-3">
+            <span class="w-6 h-6 bg-brandLilacLight text-brandLilac rounded-full font-fredoka font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">3</span>
+            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
+              3. Na face interna, faça movimentos de varredura no sentido da gengiva para a ponta dos dentes
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. SECTION: LÍNGUA -->
+      <div class="space-y-3">
+        <h3 class="font-fredoka font-bold text-slate-800 text-lg flex items-center space-x-2">
+          <span>👅</span>
+          <span>Língua</span>
+        </h3>
+
+        <div class="bg-white p-5 rounded-3xl shadow-sm border border-purple-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex-1">
+            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
+              Não esqueça de escovar a língua, sempre de dentro pra fora
+            </p>
+          </div>
+          <!-- Reserved Image Placeholder for Canva Tongue Brossing Illustration -->
+          <div class="w-full sm:w-36 h-28 bg-rose-50 border-2 border-dashed border-rose-300 rounded-2xl flex flex-col items-center justify-center text-center p-2 shrink-0">
+            <i data-lucide="image" class="w-6 h-6 text-rose-500 mb-1"></i>
+            <span class="text-[10px] font-bold text-rose-700">Ilustração Língua</span>
+            <span class="text-[9px] text-textMuted">(Asset Canva)</span>
           </div>
         </div>
 
-        <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-100 flex items-start space-x-4">
-          <div class="w-10 h-10 rounded-2xl bg-brandLilacLight text-brandLilac font-bold font-fredoka flex items-center justify-center shrink-0">3</div>
-          <div>
-            <h3 class="font-fredoka font-bold text-slate-800 text-sm">Limpeza da Língua</h3>
-            <p class="text-xs text-textMuted mt-1 leading-relaxed">Escove delicadamente a língua do fundo para a ponta para remover resíduos.</p>
-          </div>
-        </div>
+        <p class="text-xs sm:text-sm text-slate-600 font-medium px-1 flex items-center space-x-2">
+          <span>💧</span>
+          <span>Após a escovação, enxague a boca com água e cuspa o excesso.</span>
+        </p>
+      </div>
 
-        <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-100 flex items-start space-x-4">
-          <div class="w-10 h-10 rounded-2xl bg-brandLilacLight text-brandLilac font-bold font-fredoka flex items-center justify-center shrink-0">4</div>
-          <div>
-            <h3 class="font-fredoka font-bold text-slate-800 text-sm">Cuspir o Excesso</h3>
-            <p class="text-xs text-textMuted mt-1 leading-relaxed">Orientar a criança a cuspir. Não precisa enxaguar com água abundante para manter o flúor nos dentes.</p>
-          </div>
-        </div>
-
+      <!-- 4. SECTION: VAMOS ESCOVAR? -->
+      <div class="bg-gradient-to-r from-purple-100 via-purple-50 to-emerald-50 p-6 rounded-3xl dotted-box border-purple-300 shadow-sm space-y-2">
+        <h3 class="font-fredoka font-bold text-brandLilac text-base sm:text-lg flex items-center space-x-2">
+          <span>✨</span>
+          <span>Vamos escovar?</span>
+        </h3>
+        <p class="text-xs sm:text-sm text-slate-800 leading-relaxed font-medium">
+          Agora que você já sabe como escovar corretamente, vamos escovar os dentes por, pelo menos 2 minutos após as refeições para um sorriso mais saudável!
+        </p>
       </div>
     </div>
 
