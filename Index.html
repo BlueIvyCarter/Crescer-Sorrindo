@@ -1,887 +1,920 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crescer Sorrindo - App de Saúde Bucal Infantil</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts: Fredoka & Plus Jakarta Sans -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Lucide Icons CDN -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            appBg: '#F3EEFC',
-            appCardBg: '#FFFFFF',
-            brandLilac: '#8B5CF6',
-            brandLilacLight: '#EFE9FB',
-            brandMint: '#D1FAE5',
-            brandMintDark: '#059669',
-            brandCoral: '#FFE4E6',
-            brandCoralDark: '#E11D48',
-            brandYellow: '#FEF3C7',
-            brandYellowDark: '#D97706',
-            brandBlue: '#E0F2FE',
-            brandBlueDark: '#0284C7',
-            textDark: '#2D3748',
-            textMuted: '#718096'
-          },
-          fontFamily: {
-            fredoka: ['Fredoka', 'sans-serif'],
-            sans: ['Plus Jakarta Sans', 'sans-serif']
-          }
-        }
-      }
-    }
-  </script>
-
-  <style>
-    /* Dotted border utility for interactive highlights */
-    .dotted-box {
-      border: 2px dashed #A78BFA;
-    }
-    .dotted-box-coral {
-      border: 2px dashed #FDA4AF;
-    }
-    .dotted-box-mint {
-      border: 2px dashed #6EE7B7;
-    }
-    .dotted-box-yellow {
-      border: 2px dashed #FCD34D;
-    }
-
-    /* Soft pulse keyframes */
-    @keyframes pulseSoft {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.02); }
-    }
-    .animate-pulse-soft {
-      animation: pulseSoft 3s infinite ease-in-out;
-    }
-  </style>
-</head>
-<body class="bg-appBg font-sans min-h-screen text-textDark flex flex-col">
-
-  <!-- TOP BRAND HEADER & DESKTOP NAVIGATION -->
-  <header class="bg-white border-b border-purple-100 sticky top-0 z-40 shadow-sm">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <!-- Logo Brand -->
-      <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
-        <div class="w-10 h-10 rounded-2xl bg-brandLilacLight border border-purple-200 flex items-center justify-center text-xl shadow-inner">
-          🦷
-        </div>
-        <div>
-          <h1 class="font-fredoka font-bold text-lg text-slate-800 leading-none">Crescer Sorrindo</h1>
-          <p class="text-[11px] text-textMuted font-medium">Saúde Bucal Infantil</p>
-        </div>
-      </div>
-
-      <!-- Desktop Header Navigation Bar -->
-      <nav class="hidden md:flex items-center space-x-2">
-        <button onclick="switchTab('home')" id="top-nav-home" class="px-4 py-2 rounded-xl text-xs font-fredoka font-semibold flex items-center space-x-2 text-brandLilac bg-brandLilacLight transition-all">
-          <i data-lucide="home" class="w-4 h-4"></i>
-          <span>Início</span>
-        </button>
-
-        <button onclick="switchTab('progresso')" id="top-nav-progresso" class="px-4 py-2 rounded-xl text-xs font-fredoka font-semibold flex items-center space-x-2 text-slate-600 hover:text-brandLilac hover:bg-slate-50 transition-all">
-          <i data-lucide="award" class="w-4 h-4"></i>
-          <span>Progresso</span>
-        </button>
-
-        <button onclick="switchTab('perfil')" id="top-nav-perfil" class="px-4 py-2 rounded-xl text-xs font-fredoka font-semibold flex items-center space-x-2 text-slate-600 hover:text-brandLilac hover:bg-slate-50 transition-all">
-          <i data-lucide="user" class="w-4 h-4"></i>
-          <span>Perfil</span>
-        </button>
-      </nav>
-
-      <!-- Child Profile Summary Chip -->
-      <div class="hidden sm:flex items-center space-x-2 bg-slate-50 px-3 py-1.5 rounded-full border border-slate-200">
-        <span class="text-sm">👶</span>
-        <span class="text-xs font-bold font-fredoka text-slate-700">Sophia • 2 anos</span>
-      </div>
-    </div>
-  </header>
-
-  <!-- MAIN FLUID CONTENT CONTAINER -->
-  <main id="main-view" class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-24 md:pb-12">
-
-    <!-- ========================================== -->
-    <!-- SCREEN 1: HOME (INÍCIO) -->
-    <!-- ========================================== -->
-    <div id="screen-home" class="screen-content space-y-6">
-      
-      <!-- Welcome Greeting Banner -->
-      <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <span class="text-xs font-semibold text-brandLilac uppercase tracking-wider">Boas-vindas</span>
-          <h2 class="text-xl sm:text-2xl font-bold font-fredoka text-slate-800">Olá, Mamãe e Papai! 👋</h2>
-          <p class="text-xs sm:text-sm text-textMuted mt-0.5">Acompanhe e cuide da saúde bucal do seu bebê</p>
-        </div>
-        <div class="px-3.5 py-1.5 bg-brandLilacLight border border-purple-200 text-brandLilac font-bold font-fredoka text-xs rounded-full shadow-sm flex items-center space-x-1.5 shrink-0">
-          <span>👶</span>
-          <span>Sophia Silva • 2 anos</span>
-        </div>
-      </div>
-
-      <!-- Daily Tip Highlight Banner -->
-      <div class="bg-amber-50 p-4 sm:p-5 rounded-3xl dotted-box-yellow relative overflow-hidden">
-        <div class="flex items-start space-x-3 sm:space-x-4">
-          <div class="p-2.5 bg-amber-200 rounded-2xl text-amber-800 shrink-0">
-            <i data-lucide="sparkles" class="w-6 h-6"></i>
-          </div>
-          <div>
-            <h3 class="text-xs font-bold text-amber-800 uppercase tracking-wide">Dica do Dia</h3>
-            <p class="text-xs sm:text-sm text-amber-900 mt-1 leading-relaxed">
-              Dente de leite precisa de pasta com flúor (1100 ppm) desde o nascimento do <span class="font-bold">1º dentinho!</span>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Section Title -->
-      <div class="flex items-center justify-between px-1">
-        <h3 class="font-fredoka font-semibold text-slate-800 text-base sm:text-lg">Módulos Educativos</h3>
-        <span class="text-xs text-brandLilac font-semibold bg-brandLilacLight px-3 py-1 rounded-full">4 Temas Disponíveis</span>
-      </div>
-
-      <!-- Responsive Grid of Core Modules (2 cols mobile, 4 cols tablet/desktop) -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        
-        <!-- Card 1: Erupção Dentária -->
-        <button onclick="navigateToScreen('screen-erupcao')" class="bg-white hover:bg-rose-50/50 p-5 rounded-3xl shadow-sm border border-slate-100 flex flex-col items-center text-center transition-all hover:scale-[1.02] active:scale-95 group">
-          <div class="w-16 h-16 bg-brandCoral rounded-2xl flex items-center justify-center text-brandCoralDark mb-3 group-hover:rotate-6 transition-transform shadow-inner">
-            <i data-lucide="baby" class="w-8 h-8"></i>
-          </div>
-          <h4 class="font-fredoka font-bold text-slate-800 text-sm sm:text-base leading-tight">Erupção Dentária</h4>
-          <p class="text-xs text-textMuted mt-1">Nascimento & Sintomas</p>
-        </button>
-
-        <!-- Card 2: Escovação -->
-        <button onclick="navigateToScreen('screen-escovacao')" class="bg-white hover:bg-emerald-50/50 p-5 rounded-3xl shadow-sm border border-slate-100 flex flex-col items-center text-center transition-all hover:scale-[1.02] active:scale-95 group">
-          <div class="w-16 h-16 bg-brandMint rounded-2xl flex items-center justify-center text-brandMintDark mb-3 group-hover:rotate-6 transition-transform shadow-inner">
-            <i data-lucide="smile" class="w-8 h-8"></i>
-          </div>
-          <h4 class="font-fredoka font-bold text-slate-800 text-sm sm:text-base leading-tight">Escovação Infantil</h4>
-          <p class="text-xs text-textMuted mt-1">Técnicas, Dicas & Timer</p>
-        </button>
-
-        <!-- Card 3: Alimentação -->
-        <button onclick="navigateToScreen('screen-alimentacao')" class="bg-white hover:bg-amber-50/50 p-5 rounded-3xl shadow-sm border border-slate-100 flex flex-col items-center text-center transition-all hover:scale-[1.02] active:scale-95 group">
-          <div class="w-16 h-16 bg-brandYellow rounded-2xl flex items-center justify-center text-brandYellowDark mb-3 group-hover:rotate-6 transition-transform shadow-inner">
-            <i data-lucide="apple" class="w-8 h-8"></i>
-          </div>
-          <h4 class="font-fredoka font-bold text-slate-800 text-sm sm:text-base leading-tight">Alimentação</h4>
-          <p class="text-xs text-textMuted mt-1">Açúcar & Dieta Saudável</p>
-        </button>
-
-        <!-- Card 4: Hábitos e Riscos -->
-        <button onclick="navigateToScreen('screen-habitos')" class="bg-white hover:bg-purple-50/50 p-5 rounded-3xl shadow-sm border border-slate-100 flex flex-col items-center text-center transition-all hover:scale-[1.02] active:scale-95 group">
-          <div class="w-16 h-16 bg-brandLilacLight rounded-2xl flex items-center justify-center text-brandLilac mb-3 group-hover:rotate-6 transition-transform shadow-inner">
-            <i data-lucide="shield-alert" class="w-8 h-8"></i>
-          </div>
-          <h4 class="font-fredoka font-bold text-slate-800 text-sm sm:text-base leading-tight">Hábitos & Riscos</h4>
-          <p class="text-xs text-textMuted mt-1">Chupeta, Mamadeira & Dedo</p>
-        </button>
-
-      </div>
-
-      <!-- Quick Access Dentist Consultation Card -->
-      <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div class="flex items-center space-x-4">
-          <div class="p-3 bg-sky-100 text-sky-600 rounded-2xl shrink-0">
-            <i data-lucide="calendar-check" class="w-6 h-6"></i>
-          </div>
-          <div>
-            <h4 class="font-fredoka font-bold text-slate-800 text-sm sm:text-base">Próxima Consulta Odontopediatra</h4>
-            <p class="text-xs text-textMuted">Dr. Lucas Andrade • 24 de Outubro, 14:00h</p>
-          </div>
-        </div>
-        <span class="text-xs bg-sky-50 text-sky-700 px-3 py-1.5 rounded-full font-semibold border border-sky-200 self-end sm:self-center">Confirmado</span>
-      </div>
-
-    </div>
-
-    <!-- ========================================== -->
-    <!-- SCREEN 2: ESCOVAÇÃO MENU HUB -->
-    <!-- ========================================== -->
-    <div id="screen-escovacao" class="screen-content hidden space-y-6">
-      
-      <!-- Back Header -->
-      <div class="flex items-center space-x-3">
-        <button onclick="navigateToScreen('screen-home')" class="p-2.5 bg-white rounded-2xl shadow-sm text-slate-700 hover:bg-slate-100 transition-colors">
-          <i data-lucide="arrow-left" class="w-5 h-5"></i>
-        </button>
-        <div>
-          <h2 class="font-fredoka font-bold text-xl sm:text-2xl text-slate-800">Escovação</h2>
-          <p class="text-xs text-textMuted">Escolha uma das opções abaixo para continuar</p>
-        </div>
-      </div>
-
-      <!-- 3 Option Rounded Cards Menu -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        
-        <!-- Option 1: Informações adicionais -->
-        <button onclick="navigateToScreen('screen-escovacao-info')" class="bg-white hover:bg-purple-50/60 p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col items-center text-center transition-all hover:scale-[1.02] active:scale-98 group">
-          <div class="w-16 h-16 bg-purple-100 text-brandLilac rounded-2xl flex items-center justify-center mb-4 group-hover:rotate-6 transition-transform shadow-inner">
-            <i data-lucide="info" class="w-8 h-8"></i>
-          </div>
-          <h3 class="font-fredoka font-bold text-slate-800 text-base mb-1">Informações Adicionais</h3>
-          <p class="text-xs text-textMuted leading-relaxed">Orientações de flúor, quantidade de pasta e idade</p>
-        </button>
-
-        <!-- Option 2: Passo a passo -->
-        <button onclick="navigateToScreen('screen-escovacao-passo')" class="bg-white hover:bg-emerald-50/60 p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col items-center text-center transition-all hover:scale-[1.02] active:scale-98 group">
-          <div class="w-16 h-16 bg-emerald-100 text-emerald-700 rounded-2xl flex items-center justify-center mb-4 group-hover:rotate-6 transition-transform shadow-inner">
-            <i data-lucide="list-checks" class="w-8 h-8"></i>
-          </div>
-          <h3 class="font-fredoka font-bold text-slate-800 text-base mb-1">Passo a Passo</h3>
-          <p class="text-xs text-textMuted leading-relaxed">Guia prático de higienização dos dentes e língua</p>
-        </button>
-
-        <!-- Option 3: Iniciar escovação -->
-        <button onclick="navigateToScreen('screen-escovacao-timer')" class="bg-white hover:bg-sky-50/60 p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col items-center text-center transition-all hover:scale-[1.02] active:scale-98 group">
-          <div class="w-16 h-16 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center mb-4 group-hover:rotate-6 transition-transform shadow-inner">
-            <i data-lucide="timer" class="w-8 h-8"></i>
-          </div>
-          <h3 class="font-fredoka font-bold text-slate-800 text-base mb-1">Iniciar Escovação</h3>
-          <p class="text-xs text-textMuted leading-relaxed">Cronômetro interativo de 2 minutos para o bebê</p>
-        </button>
-
-      </div>
-
-    </div>
-
-    <!-- SUB-SCREEN 2A: ESCOVAÇÃO - INFORMAÇÕES ADICIONAIS -->
-    <div id="screen-escovacao-info" class="screen-content hidden space-y-6">
-      <div class="flex items-center space-x-3">
-        <button onclick="navigateToScreen('screen-escovacao')" class="p-2.5 bg-white rounded-2xl shadow-sm text-slate-700 hover:bg-slate-100 transition-colors">
-          <i data-lucide="arrow-left" class="w-5 h-5"></i>
-        </button>
-        <h2 class="font-fredoka font-bold text-xl text-slate-800">Informações Adicionais</h2>
-      </div>
-
-      <!-- Toothpaste Dosage Cards -->
-      <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-100 space-y-4">
-        <h3 class="font-fredoka font-bold text-slate-800 text-base">Quantidade de Pasta com Flúor</h3>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="p-4 bg-emerald-50 rounded-2xl text-center border border-emerald-100 flex flex-col items-center">
-            <span class="text-3xl mb-1">🌾</span>
-            <h4 class="font-bold text-xs sm:text-sm text-slate-800">0 aos 3 anos</h4>
-            <p class="text-xs text-emerald-800 mt-1 font-medium">Grão de Arroz Cru (0,1g)</p>
-          </div>
-
-          <div class="p-4 bg-sky-50 rounded-2xl text-center border border-sky-100 flex flex-col items-center">
-            <span class="text-3xl mb-1">🟢</span>
-            <h4 class="font-bold text-xs sm:text-sm text-slate-800">Mais de 3 anos</h4>
-            <p class="text-xs text-sky-800 mt-1 font-medium">Grão de Ervilha (0,3g)</p>
-          </div>
-        </div>
-
-        <div class="bg-purple-50 p-4 rounded-2xl border border-purple-100 space-y-2">
-          <h4 class="text-xs font-bold text-brandLilac uppercase tracking-wider flex items-center space-x-1">
-            <i data-lucide="sparkles" class="w-4 h-4"></i>
-            <span>Concentração Ideal de Flúor</span>
-          </h4>
-          <p class="text-xs text-slate-700 leading-relaxed">
-            Certifique-se de utilizar creme dental com concentração de <strong>1.000 a 1.100 ppm de flúor</strong> desde o nascimento do primeiro dente de leite. Frequência recomendada: 2 a 3 vezes ao dia.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- SUB-SCREEN 2B: ESCOVAÇÃO - PASSO A PASSO -->
-    <div id="screen-escovacao-passo" class="screen-content hidden space-y-6 max-w-4xl mx-auto">
-      <!-- Header with Back Button -->
-      <div class="flex items-center space-x-3">
-        <button onclick="navigateToScreen('screen-escovacao')" class="p-2.5 bg-white rounded-2xl shadow-sm text-slate-700 hover:bg-slate-100 transition-colors flex items-center space-x-1">
-          <i data-lucide="arrow-left" class="w-5 h-5"></i>
-          <span class="text-xs font-bold font-fredoka hidden sm:inline">Voltar</span>
-        </button>
-        <div>
-          <h2 class="font-fredoka font-bold text-xl sm:text-2xl text-slate-800">Escovação</h2>
-          <p class="text-xs text-textMuted">Guia de passo a passo para uma higiene completa</p>
-        </div>
-      </div>
-
-      <!-- 1. SECTION: FIO DENTAL -->
-      <div class="space-y-2">
-        <h3 class="font-fredoka font-bold text-slate-800 text-lg flex items-center space-x-2">
-          <span>🧵</span>
-          <span>Fio Dental</span>
-        </h3>
-        
-        <div class="bg-white p-5 rounded-3xl shadow-sm border border-purple-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div class="flex-1">
-            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
-              Precisamos usar o fio dental antes de escovar os dentes, é ele que limpa onde a escova não alcança!
-            </p>
-          </div>
-          <!-- Reserved Image Placeholder for Canva Flossing Illustration -->
-          <div class="w-full sm:w-36 h-28 bg-brandLilacLight/70 border-2 border-dashed border-purple-300 rounded-2xl flex flex-col items-center justify-center text-center p-2 shrink-0">
-            <i data-lucide="image" class="w-6 h-6 text-brandLilac mb-1"></i>
-            <span class="text-[10px] font-bold text-brandLilac">Ilustração Fio Dental</span>
-            <span class="text-[9px] text-textMuted">(Asset Canva)</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2. SECTION: PASSO À PASSO -->
-      <div class="space-y-4">
-        <div>
-          <h3 class="font-fredoka font-bold text-slate-800 text-lg flex items-center space-x-2">
-            <span>🪥</span>
-            <span>Passo à Passo</span>
-          </h3>
-          <p class="text-xs text-textMuted mt-0.5">Siga as orientações para uma escovação eficaz!</p>
-        </div>
-
-        <!-- Reserved 3 Visual Areas for Canva Brushing Movement Illustrations -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <div class="h-32 bg-emerald-50 border-2 border-dashed border-emerald-300 rounded-2xl flex flex-col items-center justify-center text-center p-3">
-            <i data-lucide="image" class="w-6 h-6 text-emerald-600 mb-1"></i>
-            <span class="text-xs font-bold text-emerald-800">Ilustração 1</span>
-            <span class="text-[10px] text-emerald-600">Movimentos Circulares</span>
-            <span class="text-[9px] text-textMuted">(Asset Canva)</span>
-          </div>
-
-          <div class="h-32 bg-sky-50 border-2 border-dashed border-sky-300 rounded-2xl flex flex-col items-center justify-center text-center p-3">
-            <i data-lucide="image" class="w-6 h-6 text-sky-600 mb-1"></i>
-            <span class="text-xs font-bold text-sky-800">Ilustração 2</span>
-            <span class="text-[10px] text-sky-600">Movimento Vai e Vem</span>
-            <span class="text-[9px] text-textMuted">(Asset Canva)</span>
-          </div>
-
-          <div class="h-32 bg-purple-50 border-2 border-dashed border-purple-300 rounded-2xl flex flex-col items-center justify-center text-center p-3">
-            <i data-lucide="image" class="w-6 h-6 text-brandLilac mb-1"></i>
-            <span class="text-xs font-bold text-purple-800">Ilustração 3</span>
-            <span class="text-[10px] text-purple-600">Varredura Interna</span>
-            <span class="text-[9px] text-textMuted">(Asset Canva)</span>
-          </div>
-        </div>
-
-        <!-- Exactly 3 Brushing Instructions -->
-        <div class="space-y-3">
-          <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex items-start space-x-3">
-            <span class="w-6 h-6 bg-brandLilacLight text-brandLilac rounded-full font-fredoka font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">1</span>
-            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
-              1. Com a boca entreaberta escove a parte externa dos dentes com movimentos circulares
-            </p>
-          </div>
-
-          <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex items-start space-x-3">
-            <span class="w-6 h-6 bg-brandLilacLight text-brandLilac rounded-full font-fredoka font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">2</span>
-            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
-              2. Na parte de cima dos dentes, onde fazemos a mastigação, escove com movimentos de vai e vem
-            </p>
-          </div>
-
-          <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex items-start space-x-3">
-            <span class="w-6 h-6 bg-brandLilacLight text-brandLilac rounded-full font-fredoka font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">3</span>
-            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
-              3. Na face interna, faça movimentos de varredura no sentido da gengiva para a ponta dos dentes
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3. SECTION: LÍNGUA -->
-      <div class="space-y-3">
-        <h3 class="font-fredoka font-bold text-slate-800 text-lg flex items-center space-x-2">
-          <span>👅</span>
-          <span>Língua</span>
-        </h3>
-
-        <div class="bg-white p-5 rounded-3xl shadow-sm border border-purple-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div class="flex-1">
-            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
-              Não esqueça de escovar a língua, sempre de dentro pra fora
-            </p>
-          </div>
-          <!-- Reserved Image Placeholder for Canva Tongue Brossing Illustration -->
-          <div class="w-full sm:w-36 h-28 bg-rose-50 border-2 border-dashed border-rose-300 rounded-2xl flex flex-col items-center justify-center text-center p-2 shrink-0">
-            <i data-lucide="image" class="w-6 h-6 text-rose-500 mb-1"></i>
-            <span class="text-[10px] font-bold text-rose-700">Ilustração Língua</span>
-            <span class="text-[9px] text-textMuted">(Asset Canva)</span>
-          </div>
-        </div>
-
-        <p class="text-xs sm:text-sm text-slate-600 font-medium px-1 flex items-center space-x-2">
-          <span>💧</span>
-          <span>Após a escovação, enxague a boca com água e cuspa o excesso.</span>
-        </p>
-      </div>
-
-      <!-- 4. SECTION: VAMOS ESCOVAR? -->
-      <div class="bg-gradient-to-r from-purple-100 via-purple-50 to-emerald-50 p-6 rounded-3xl dotted-box border-purple-300 shadow-sm space-y-2">
-        <h3 class="font-fredoka font-bold text-brandLilac text-base sm:text-lg flex items-center space-x-2">
-          <span>✨</span>
-          <span>Vamos escovar?</span>
-        </h3>
-        <p class="text-xs sm:text-sm text-slate-800 leading-relaxed font-medium">
-          Agora que você já sabe como escovar corretamente, vamos escovar os dentes por, pelo menos 2 minutos após as refeições para um sorriso mais saudável!
-        </p>
-      </div>
-    </div>
-
-    <!-- SUB-SCREEN 2C: ESCOVAÇÃO - CRONÔMETRO -->
-    <div id="screen-escovacao-timer" class="screen-content hidden space-y-6">
-      <div class="flex items-center space-x-3">
-        <button onclick="navigateToScreen('screen-escovacao')" class="p-2.5 bg-white rounded-2xl shadow-sm text-slate-700 hover:bg-slate-100 transition-colors">
-          <i data-lucide="arrow-left" class="w-5 h-5"></i>
-        </button>
-        <h2 class="font-fredoka font-bold text-xl text-slate-800">Iniciar Escovação</h2>
-      </div>
-
-      <div class="bg-white p-8 rounded-3xl shadow-sm text-center dotted-box-mint max-w-lg mx-auto space-y-4">
-        <span class="text-xs font-semibold text-brandMintDark uppercase tracking-wider">Cronômetro Divertido</span>
-        <div id="timer-display" class="text-5xl sm:text-6xl font-fredoka font-bold text-slate-800 tracking-wider">02:00</div>
-        <p class="text-xs sm:text-sm text-textMuted">Tempo ideal recomendado para escovação</p>
-        
-        <div class="flex justify-center space-x-3 pt-2">
-          <button id="btn-start-timer" onclick="toggleTimer()" class="px-6 py-3 bg-emerald-500 text-white rounded-2xl font-bold font-fredoka text-sm hover:bg-emerald-600 shadow-md flex items-center space-x-2 transition-transform active:scale-95">
-            <i data-lucide="play" class="w-5 h-5"></i>
-            <span>Iniciar Escovação</span>
-          </button>
-          <button onclick="resetTimer()" class="px-4 py-3 bg-slate-100 text-slate-600 rounded-2xl font-bold font-fredoka text-sm hover:bg-slate-200 transition-colors">
-            <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- ========================================== -->
-    <!-- SCREEN 3: ERUPÇÃO DENTÁRIA -->
-    <!-- ========================================== -->
-    <div id="screen-erupcao" class="screen-content hidden space-y-6">
-      <div class="flex items-center space-x-3">
-        <button onclick="navigateToScreen('screen-home')" class="p-2.5 bg-white rounded-2xl shadow-sm text-slate-700 hover:bg-slate-100 transition-colors">
-          <i data-lucide="arrow-left" class="w-5 h-5"></i>
-        </button>
-        <h2 class="font-fredoka font-bold text-xl sm:text-2xl text-slate-800">Erupção Dentária</h2>
-      </div>
-
-      <div class="bg-brandCoral/30 p-5 rounded-3xl border border-rose-200 space-y-2">
-        <div class="flex items-center space-x-2 text-brandCoralDark font-bold text-base font-fredoka">
-          <i data-lucide="sparkles" class="w-5 h-5"></i>
-          <span>Ordem de Nascimento dos Dentes</span>
-        </div>
-        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
-          A primeira dentição tem 20 dentes de leite. O nascimento varia bastante, mas geralmente inicia entre os 6 e 10 meses de vida.
-        </p>
-      </div>
-
-      <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-sm space-y-4">
-        <h3 class="font-fredoka font-semibold text-slate-800 text-base">Cronograma Estimado de Erupção</h3>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm">
-          <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 flex justify-between items-center">
-            <span class="font-medium text-slate-800">Incisivos Centrais Inferiores</span>
-            <span class="text-brandCoralDark bg-rose-50 font-bold px-2.5 py-1 rounded-xl text-xs">6 - 10 meses</span>
-          </div>
-
-          <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 flex justify-between items-center">
-            <span class="font-medium text-slate-800">Incisivos Centrais Superiores</span>
-            <span class="text-brandCoralDark bg-rose-50 font-bold px-2.5 py-1 rounded-xl text-xs">8 - 12 meses</span>
-          </div>
-
-          <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 flex justify-between items-center">
-            <span class="font-medium text-slate-800">Incisivos Laterais</span>
-            <span class="text-brandCoralDark bg-rose-50 font-bold px-2.5 py-1 rounded-xl text-xs">9 - 13 meses</span>
-          </div>
-
-          <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 flex justify-between items-center">
-            <span class="font-medium text-slate-800">Primeiros Molares</span>
-            <span class="text-brandCoralDark bg-rose-50 font-bold px-2.5 py-1 rounded-xl text-xs">13 - 19 meses</span>
-          </div>
-
-          <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 flex justify-between items-center md:col-span-2">
-            <span class="font-medium text-slate-800">Caninos e Segundos Molares</span>
-            <span class="text-brandCoralDark bg-rose-50 font-bold px-2.5 py-1 rounded-xl text-xs">16 - 31 meses</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ========================================== -->
-    <!-- SCREEN 4: ALIMENTAÇÃO -->
-    <!-- ========================================== -->
-    <div id="screen-alimentacao" class="screen-content hidden space-y-6">
-      <div class="flex items-center space-x-3">
-        <button onclick="navigateToScreen('screen-home')" class="p-2.5 bg-white rounded-2xl shadow-sm text-slate-700 hover:bg-slate-100 transition-colors">
-          <i data-lucide="arrow-left" class="w-5 h-5"></i>
-        </button>
-        <h2 class="font-fredoka font-bold text-xl sm:text-2xl text-slate-800">Alimentação & Saúde Bucal</h2>
-      </div>
-
-      <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-sm space-y-4">
-        <h3 class="font-fredoka font-bold text-slate-800 text-base">Semáforo Alimentar do Sorriso</h3>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <!-- Green -->
-          <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 space-y-2">
-            <div class="flex items-center space-x-2">
-              <span class="w-3.5 h-3.5 bg-emerald-500 rounded-full"></span>
-              <p class="text-xs sm:text-sm font-bold text-emerald-900">Amigo dos Dentes</p>
-            </div>
-            <p class="text-xs text-emerald-800">Água, leite materno, legumes, verduras e frutas in natura.</p>
-          </div>
-
-          <!-- Yellow -->
-          <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200 space-y-2">
-            <div class="flex items-center space-x-2">
-              <span class="w-3.5 h-3.5 bg-amber-500 rounded-full"></span>
-              <p class="text-xs sm:text-sm font-bold text-amber-900">Consumo Moderado</p>
-            </div>
-            <p class="text-xs text-amber-800">Frutas secas, sucos naturais e alimentos ricos em amido.</p>
-          </div>
-
-          <!-- Red -->
-          <div class="p-4 rounded-2xl bg-rose-50 border border-rose-200 space-y-2">
-            <div class="flex items-center space-x-2">
-              <span class="w-3.5 h-3.5 bg-rose-500 rounded-full"></span>
-              <p class="text-xs sm:text-sm font-bold text-rose-900">Evitar até 2 Anos</p>
-            </div>
-            <p class="text-xs text-rose-800">Açúcar adicionado, biscoitos recheados, refrigerantes e doces.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ========================================== -->
-    <!-- SCREEN 5: HÁBITOS E RISCOS -->
-    <!-- ========================================== -->
-    <div id="screen-habitos" class="screen-content hidden space-y-6">
-      <div class="flex items-center space-x-3">
-        <button onclick="navigateToScreen('screen-home')" class="p-2.5 bg-white rounded-2xl shadow-sm text-slate-700 hover:bg-slate-100 transition-colors">
-          <i data-lucide="arrow-left" class="w-5 h-5"></i>
-        </button>
-        <h2 class="font-fredoka font-bold text-xl sm:text-2xl text-slate-800">Hábitos & Riscos</h2>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="bg-white p-5 rounded-3xl shadow-sm space-y-3 border border-slate-100">
-          <h3 class="font-fredoka font-bold text-slate-800 text-base">Chupeta e Dedo 🍼</h3>
-          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-            O uso prolongado pode alterar a mordida (mordida aberta) e o desenvolvimento da fala. Recomenda-se remover o hábito até os <strong>2 anos e meio</strong>.
-          </p>
-        </div>
-
-        <div class="bg-white p-5 rounded-3xl shadow-sm space-y-3 border border-slate-100">
-          <h3 class="font-fredoka font-bold text-slate-800 text-base">Cárie de Mamadeira Noturna</h3>
-          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-            Dormir com mamadeira contendo leite, mingau ou suco reduz o fluxo de saliva e facilita o surgimento de lesões severas de cárie nos dentes da frente.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- ========================================== -->
-    <!-- SCREEN 6: PROGRESSO -->
-    <!-- ========================================== -->
-    <div id="screen-progresso" class="screen-content hidden space-y-6">
-      
-      <!-- Top Header Title Bar -->
-      <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-        <div>
-          <h2 class="text-xl sm:text-2xl font-bold font-fredoka text-slate-800">Progresso</h2>
-          <p class="text-xs sm:text-sm text-textMuted mt-0.5">Acompanhe a jornada do sorriso</p>
-        </div>
-        <div class="px-3.5 py-1.5 bg-brandLilacLight border border-purple-200 text-brandLilac font-bold font-fredoka text-xs rounded-full shadow-sm flex items-center space-x-1.5">
-          <span>👶</span>
-          <span>Idade: 2 anos</span>
-        </div>
-      </div>
-
-      <!-- 3 Structured Cards Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-        
-        <!-- Section 1: Já aconteceu -->
-        <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-100 space-y-4">
-          <div class="flex items-center space-x-2 border-b border-slate-100 pb-3">
-            <div class="p-2 bg-emerald-100 text-emerald-700 rounded-xl">
-              <i data-lucide="check-circle-2" class="w-5 h-5"></i>
-            </div>
-            <h3 class="font-fredoka font-bold text-slate-800 text-base">Já aconteceu</h3>
-          </div>
-
-          <ul class="space-y-3 text-xs sm:text-sm text-slate-700">
-            <li class="flex items-center space-x-3 bg-emerald-50/60 p-3 rounded-2xl border border-emerald-100/60">
-              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0"></span>
-              <span class="font-medium">Nascimento dos primeiros dentinhos</span>
-            </li>
-            <li class="flex items-center space-x-3 bg-emerald-50/60 p-3 rounded-2xl border border-emerald-100/60">
-              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0"></span>
-              <span class="font-medium">Início da escovação</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Section 2: Agora -->
-        <div class="bg-white p-5 rounded-3xl shadow-sm dotted-box space-y-4">
-          <div class="flex items-center justify-between border-b border-purple-100 pb-3">
-            <div class="flex items-center space-x-2">
-              <div class="p-2 bg-purple-100 text-brandLilac rounded-xl">
-                <i data-lucide="sparkles" class="w-5 h-5"></i>
-              </div>
-              <h3 class="font-fredoka font-bold text-slate-800 text-base">Agora</h3>
-            </div>
-            <span class="text-[10px] uppercase font-bold bg-purple-100 text-brandLilac px-2.5 py-1 rounded-full">Fase Atual</span>
-          </div>
-
-          <ul class="space-y-3 text-xs sm:text-sm text-slate-700">
-            <li class="flex items-center space-x-3 bg-purple-50 p-3 rounded-2xl border border-purple-100">
-              <span class="w-2.5 h-2.5 rounded-full bg-brandLilac shrink-0 animate-pulse"></span>
-              <span class="font-semibold text-slate-800">Rotina de higiene</span>
-            </li>
-            <li class="flex items-center space-x-3 bg-purple-50 p-3 rounded-2xl border border-purple-100">
-              <span class="w-2.5 h-2.5 rounded-full bg-brandLilac shrink-0 animate-pulse"></span>
-              <span class="font-semibold text-slate-800">Alimentação adequada</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Section 3: Próximos passos -->
-        <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-100 space-y-4">
-          <div class="flex items-center space-x-2 border-b border-slate-100 pb-3">
-            <div class="p-2 bg-amber-100 text-amber-700 rounded-xl">
-              <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
-            </div>
-            <h3 class="font-fredoka font-bold text-slate-800 text-base">Próximos passos</h3>
-          </div>
-
-          <ul class="space-y-3 text-xs sm:text-sm text-slate-700">
-            <li class="flex items-center space-x-3 bg-amber-50/60 p-3 rounded-2xl border border-amber-100/60">
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0"></span>
-              <span class="font-medium text-slate-700">Troca dentária</span>
-            </li>
-            <li class="flex items-center space-x-3 bg-amber-50/60 p-3 rounded-2xl border border-amber-100/60">
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0"></span>
-              <span class="font-medium text-slate-700">Acompanhamento odontológico</span>
-            </li>
-          </ul>
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- ========================================== -->
-    <!-- SCREEN 7: PERFIL -->
-    <!-- ========================================== -->
-    <div id="screen-perfil" class="screen-content hidden space-y-6 max-w-2xl mx-auto">
-      
-      <!-- Title & Subtitle Header -->
-      <div class="bg-white p-5 rounded-3xl shadow-sm text-center">
-        <h2 class="text-xl sm:text-2xl font-bold font-fredoka text-slate-800">Perfil</h2>
-        <p class="text-xs sm:text-sm text-textMuted mt-1">Essas informações ajudam a personalizar as orientações.</p>
-      </div>
-
-      <!-- Profile Form Card -->
-      <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-slate-100 space-y-6">
-        
-        <!-- Circular Avatar Photo Placeholder -->
-        <div class="flex flex-col items-center justify-center">
-          <div class="relative group cursor-pointer" onclick="document.getElementById('photo-upload').click()">
-            <div id="avatar-preview" class="w-28 h-28 rounded-full bg-brandLilacLight border-2 border-brandLilac flex items-center justify-center text-5xl shadow-inner overflow-hidden">
-              👶
-            </div>
-            <div class="absolute bottom-0 right-0 p-2.5 bg-brandLilac text-white rounded-full shadow-md hover:bg-purple-700 transition-colors">
-              <i data-lucide="camera" class="w-4 h-4"></i>
-            </div>
-          </div>
-          <input type="file" id="photo-upload" accept="image/*" class="hidden" onchange="handlePhotoUpload(event)">
-          <span class="text-xs text-textMuted mt-2 font-medium">Toque para alterar a foto</span>
-        </div>
-
-        <!-- Form Fields -->
-        <form id="profile-form" onsubmit="saveProfile(event)" class="space-y-4">
-          
-          <!-- Field 1: Nome da criança -->
-          <div>
-            <label class="block text-xs sm:text-sm font-semibold text-slate-700 mb-1.5 ml-1">Nome da criança</label>
-            <input type="text" id="child-name" value="Sophia Silva" placeholder="Digite o nome da criança" required
-              class="w-full px-4 py-3.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-brandLilac focus:bg-white text-slate-800 transition-all font-medium">
-          </div>
-
-          <!-- Field 2: Data de nascimento -->
-          <div>
-            <label class="block text-xs sm:text-sm font-semibold text-slate-700 mb-1.5 ml-1">Data de nascimento</label>
-            <input type="date" id="child-dob" value="2024-10-15" required
-              class="w-full px-4 py-3.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-brandLilac focus:bg-white text-slate-800 transition-all font-medium">
-          </div>
-
-          <!-- Field 3: Responsável ou cuidador -->
-          <div>
-            <label class="block text-xs sm:text-sm font-semibold text-slate-700 mb-1.5 ml-1">Responsável ou cuidador</label>
-            <input type="text" id="guardian-name" value="Ana Silva" placeholder="Digite o nome do responsável" required
-              class="w-full px-4 py-3.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-brandLilac focus:bg-white text-slate-800 transition-all font-medium">
-          </div>
-
-          <!-- Save Button -->
-          <div class="pt-3">
-            <button type="submit" class="w-full py-4 bg-brandLilac hover:bg-purple-700 active:scale-98 text-white rounded-2xl font-bold font-fredoka text-sm sm:text-base shadow-md transition-all flex items-center justify-center space-x-2">
-              <i data-lucide="check-circle-2" class="w-5 h-5"></i>
-              <span>Salvar</span>
-            </button>
-          </div>
-
-        </form>
-
-      </div>
-
-      <!-- Success Toast Notification -->
-      <div id="toast-success" class="hidden p-4 bg-emerald-100 border border-emerald-200 text-emerald-800 text-xs sm:text-sm font-medium rounded-2xl flex items-center space-x-2 animate-bounce">
-        <i data-lucide="sparkles" class="w-5 h-5 text-emerald-600 shrink-0"></i>
-        <span>Perfil atualizado com sucesso! ✨</span>
-      </div>
-
-    </div>
-
-  </main>
-
-  <!-- MOBILE BOTTOM NAVIGATION BAR (Visible on mobile screens) -->
-  <div class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-purple-100 px-6 py-2.5 flex justify-around items-center z-40 shadow-lg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crescer Sorrindo - Saúde Bucal Infantil</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Quicksand & Nunito -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Nav Item 1: Home -->
-    <button onclick="switchTab('home')" id="nav-home" class="flex flex-col items-center text-brandLilac transition-colors">
-      <i data-lucide="home" class="w-6 h-6"></i>
-      <span class="text-[10px] font-fredoka font-medium mt-0.5">Início</span>
-    </button>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bg: '#F5F0FF',
+                            cardBg: '#FFFFFF',
+                            purple: '#7C3AED',
+                            purpleLight: '#EFE9FB',
+                            purpleSoft: '#D8C7FF',
+                            purpleDark: '#5B21B6',
+                            textDark: '#332941',
+                            textMuted: '#6B7280'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Nunito', 'sans-serif'],
+                        heading: ['Quicksand', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F5F0FF;
+            color: #332941;
+            font-family: 'Nunito', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-    <!-- Nav Item 2: Progresso -->
-    <button onclick="switchTab('progresso')" id="nav-progresso" class="flex flex-col items-center text-slate-400 hover:text-brandLilac transition-colors">
-      <i data-lucide="award" class="w-6 h-6"></i>
-      <span class="text-[10px] font-fredoka font-medium mt-0.5">Progresso</span>
-    </button>
+        .dotted-box {
+            border: 2px dashed #9333EA;
+            background-color: rgba(239, 233, 251, 0.5);
+        }
 
-    <!-- Nav Item 3: Perfil -->
-    <button onclick="switchTab('perfil')" id="nav-perfil" class="flex flex-col items-center text-slate-400 hover:text-brandLilac transition-colors">
-      <i data-lucide="user" class="w-6 h-6"></i>
-      <span class="text-[10px] font-fredoka font-medium mt-0.5">Perfil</span>
-    </button>
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F5F0FF;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 9999px;
+        }
 
-  </div>
+        .active-tab {
+            color: #7C3AED !important;
+            font-weight: 800;
+        }
 
-  <!-- JavaScript App Navigation & Logic -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      lucide.createIcons();
-    });
+        .active-tab i {
+            transform: translateY(-2px);
+            color: #7C3AED;
+        }
 
-    // Screen Switcher
-    function switchTab(tabName) {
-      // Hide all active screens
-      const screens = document.querySelectorAll('.screen-content');
-      screens.forEach(s => s.classList.add('hidden'));
+        .page-screen {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.25s ease-in-out;
+        }
 
-      // Reset Mobile Nav Buttons
-      ['home', 'progresso', 'perfil'].forEach(btn => {
-        const mobNav = document.getElementById(`nav-${btn}`);
-        const topNav = document.getElementById(`top-nav-${btn}`);
-        if (mobNav) mobNav.className = 'flex flex-col items-center text-slate-400 hover:text-brandLilac transition-colors';
-        if (topNav) topNav.className = 'px-4 py-2 rounded-xl text-xs font-fredoka font-semibold flex items-center space-x-2 text-slate-600 hover:text-brandLilac hover:bg-slate-50 transition-all';
-      });
+        .page-screen.active {
+            display: block;
+            opacity: 1;
+        }
 
-      // Highlight active elements
-      const activeScreen = document.getElementById(`screen-${tabName}`);
-      const activeMobNav = document.getElementById(`nav-${tabName}`);
-      const activeTopNav = document.getElementById(`top-nav-${tabName}`);
+        .canva-placeholder {
+            background: linear-gradient(135deg, #EFE9FB 0%, #D8C7FF 100%);
+            border: 2px dashed #9333EA;
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #6B21A8;
+            font-weight: 700;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
 
-      if (activeScreen) activeScreen.classList.remove('hidden');
-      if (activeMobNav) activeMobNav.className = 'flex flex-col items-center text-brandLilac transition-colors';
-      if (activeTopNav) activeTopNav.className = 'px-4 py-2 rounded-xl text-xs font-fredoka font-semibold flex items-center space-x-2 text-brandLilac bg-brandLilacLight transition-all';
+        .canva-placeholder::before {
+            content: 'Espaço para Ilustração Canva';
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.7;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-brand-purpleSoft selection:text-brand-purpleDark">
 
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      lucide.createIcons();
-    }
+    <!-- TOP HEADER -->
+    <header class="bg-white border-b border-purple-100 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="navigateToTab('home')">
+                <div class="w-10 h-10 rounded-full bg-brand-purpleLight flex items-center justify-center text-brand-purple font-extrabold text-xl shadow-inner">
+                    <i class="fa-solid fa-tooth"></i>
+                </div>
+                <div>
+                    <h1 class="font-heading font-bold text-xl text-brand-purpleDark tracking-tight leading-none">Crescer Sorrindo</h1>
+                    <span class="text-xs text-brand-textMuted font-semibold">Saúde Bucal Infantil</span>
+                </div>
+            </div>
 
-    // Direct Navigator for detail pages
-    function navigateToScreen(screenId) {
-      const screens = document.querySelectorAll('.screen-content');
-      screens.forEach(s => s.classList.add('hidden'));
-      const activeScreen = document.getElementById(screenId);
-      if (activeScreen) activeScreen.classList.remove('hidden');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      lucide.createIcons();
-    }
+            <div class="flex items-center space-x-2 bg-brand-purpleLight/60 px-3 py-1.5 rounded-full border border-purple-200/50 cursor-pointer hover:bg-brand-purpleLight transition" onclick="navigateToTab('perfil')">
+                <div class="w-6 h-6 rounded-full bg-purple-300 flex items-center justify-center text-xs font-bold text-purple-800" id="headerAvatar">
+                    <i class="fa-solid fa-child"></i>
+                </div>
+                <span class="text-xs font-bold text-brand-purpleDark" id="headerChildName">Leonardo (2 anos)</span>
+            </div>
+        </div>
+    </header>
 
-    // Profile Photo Upload Preview
-    function handlePhotoUpload(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const preview = document.getElementById('avatar-preview');
-          preview.innerHTML = `<img src="${e.target.result}" class="w-full h-full object-cover">`;
-        };
-        reader.readAsDataURL(file);
-      }
-    }
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-1 max-w-5xl w-full mx-auto px-4 py-6 mb-20">
 
-    // Save Profile Form Logic
-    function saveProfile(event) {
-      event.preventDefault();
-      const toast = document.getElementById('toast-success');
-      toast.classList.remove('hidden');
-      setTimeout(() => {
-        toast.classList.add('hidden');
-      }, 3000);
-    }
+        <!-- ==================== HOME TAB ==================== -->
+        <section id="tab-home" class="page-screen active">
+            <div class="bg-white rounded-3xl p-6 shadow-sm border border-purple-100 mb-6">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div class="space-y-1 text-center md:text-left">
+                        <span class="text-xs font-bold uppercase tracking-wider text-brand-purple bg-brand-purpleLight px-3 py-1 rounded-full">Olá, papais!</span>
+                        <h2 class="text-2xl font-heading font-extrabold text-brand-textDark">Acompanhe a saúde do sorriso</h2>
+                        <p class="text-sm text-brand-textMuted">Selecione um módulo abaixo para aprender técnicas, hábitos e dicas práticas.</p>
+                    </div>
+                    <div class="dotted-box rounded-2xl p-4 flex items-center space-x-3 max-w-md w-full">
+                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-purple-600 shrink-0 shadow-sm">
+                            <i class="fa-solid fa-lightbulb text-lg"></i>
+                        </div>
+                        <p class="text-xs font-bold text-purple-900">Dica do dia: A primeira visita ao dentista deve acontecer até o 1º ano de vida!</p>
+                    </div>
+                </div>
+            </div>
 
-    // Brushing Timer Logic
-    let timerInterval = null;
-    let secondsLeft = 120;
-    let isTimerRunning = false;
+            <h3 class="font-heading font-bold text-lg text-brand-textDark mb-4 flex items-center">
+                <i class="fa-solid fa-shapes text-brand-purple mr-2"></i> Módulos Educativos
+            </h3>
 
-    function toggleTimer() {
-      const btn = document.getElementById('btn-start-timer');
-      if (isTimerRunning) {
-        clearInterval(timerInterval);
-        isTimerRunning = false;
-        btn.innerHTML = `<i data-lucide="play" class="w-5 h-5"></i><span>Continuar</span>`;
-      } else {
-        isTimerRunning = true;
-        btn.innerHTML = `<i data-lucide="pause" class="w-5 h-5"></i><span>Pausar</span>`;
-        timerInterval = setInterval(() => {
-          if (secondsLeft > 0) {
-            secondsLeft--;
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                
+                <!-- MODULE 1: ERUPÇÃO DENTÁRIA -->
+                <div onclick="openModule('erupcao')" class="bg-white rounded-3xl p-6 shadow-sm border border-purple-100 hover:shadow-md hover:border-purple-300 transition-all duration-200 cursor-pointer flex flex-col items-center text-center group">
+                    <div class="w-16 h-16 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-baby text-2xl"></i>
+                    </div>
+                    <h4 class="font-heading font-bold text-base text-brand-textDark mb-1">Erupção Dentária</h4>
+                    <p class="text-xs text-brand-textMuted mb-3">Cronograma de nascimento dos dentes e alívio do desconforto.</p>
+                    <span class="text-xs font-bold text-brand-purple bg-brand-purpleLight px-3 py-1 rounded-full mt-auto">Acessar Guia &rarr;</span>
+                </div>
+
+                <!-- MODULE 2: ESCOVAÇÃO -->
+                <div onclick="openModule('escovacao')" class="bg-white rounded-3xl p-6 shadow-sm border border-purple-100 hover:shadow-md hover:border-purple-300 transition-all duration-200 cursor-pointer flex flex-col items-center text-center group">
+                    <div class="w-16 h-16 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-tooth text-2xl"></i>
+                    </div>
+                    <h4 class="font-heading font-bold text-base text-brand-textDark mb-1">Escovação</h4>
+                    <p class="text-xs text-brand-textMuted mb-3">Passo a passo, quantidade de pasta e cronômetro de 2 minutos.</p>
+                    <span class="text-xs font-bold text-brand-purple bg-brand-purpleLight px-3 py-1 rounded-full mt-auto">Acessar Guia &rarr;</span>
+                </div>
+
+                <!-- MODULE 3: ALIMENTAÇÃO -->
+                <div onclick="openModule('alimentacao')" class="bg-white rounded-3xl p-6 shadow-sm border border-purple-100 hover:shadow-md hover:border-purple-300 transition-all duration-200 cursor-pointer flex flex-col items-center text-center group">
+                    <div class="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-apple-whole text-2xl"></i>
+                    </div>
+                    <h4 class="font-heading font-bold text-base text-brand-textDark mb-1">Alimentação e Saúde Bucal</h4>
+                    <p class="text-xs text-brand-textMuted mb-3">Alimentos protetores, prevenção do açúcar e cárie da mamadeira.</p>
+                    <span class="text-xs font-bold text-brand-purple bg-brand-purpleLight px-3 py-1 rounded-full mt-auto">Acessar Guia &rarr;</span>
+                </div>
+
+                <!-- MODULE 4: HÁBITOS E RISCOS -->
+                <div onclick="openModule('habitos')" class="bg-white rounded-3xl p-6 shadow-sm border border-purple-100 hover:shadow-md hover:border-purple-300 transition-all duration-200 cursor-pointer flex flex-col items-center text-center group">
+                    <div class="w-16 h-16 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-shield-cat text-2xl"></i>
+                    </div>
+                    <h4 class="font-heading font-bold text-base text-brand-textDark mb-1">Hábitos e Riscos</h4>
+                    <p class="text-xs text-brand-textMuted mb-3">Uso de chupeta, sucção de dedo e mamadeira noturna.</p>
+                    <span class="text-xs font-bold text-brand-purple bg-brand-purpleLight px-3 py-1 rounded-full mt-auto">Acessar Guia &rarr;</span>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== PROGRESSO TAB ==================== -->
+        <section id="tab-progresso" class="page-screen">
+            <div class="bg-white rounded-3xl p-6 shadow-sm border border-purple-100 max-w-3xl mx-auto space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-purple-100 gap-2">
+                    <div>
+                        <h2 class="text-2xl font-heading font-extrabold text-brand-textDark">Progresso</h2>
+                        <p class="text-sm text-brand-textMuted">Acompanhe a jornada do sorriso</p>
+                    </div>
+                    <div>
+                        <span class="inline-block bg-brand-purpleLight text-brand-purpleDark font-extrabold text-xs px-4 py-2 rounded-full border border-purple-200">
+                            <i class="fa-solid fa-cake-candles mr-1"></i> Idade: 2 anos
+                        </span>
+                    </div>
+                </div>
+
+                <div class="bg-emerald-50/60 rounded-2xl p-5 border border-emerald-100 space-y-3">
+                    <div class="flex items-center space-x-2 text-emerald-800">
+                        <i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i>
+                        <h3 class="font-heading font-bold text-base">Já aconteceu</h3>
+                    </div>
+                    <ul class="space-y-2 pl-7 text-sm text-emerald-950 font-medium list-disc">
+                        <li>Nascimento dos primeiros dentinhos</li>
+                        <li>Início da escovação</li>
+                    </ul>
+                </div>
+
+                <div class="dotted-box rounded-2xl p-5 space-y-3 relative overflow-hidden">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-2 text-purple-900">
+                            <i class="fa-solid fa-star text-purple-600 text-lg"></i>
+                            <h3 class="font-heading font-bold text-base">Agora</h3>
+                        </div>
+                        <span class="text-[10px] font-extrabold uppercase bg-purple-600 text-white px-2.5 py-0.5 rounded-full">Fase Atual</span>
+                    </div>
+                    <ul class="space-y-2 pl-7 text-sm text-purple-950 font-semibold list-disc">
+                        <li>Rotina de higiene</li>
+                        <li>Alimentação adequada</li>
+                    </ul>
+                </div>
+
+                <div class="bg-sky-50/60 rounded-2xl p-5 border border-sky-100 space-y-3">
+                    <div class="flex items-center space-x-2 text-sky-800">
+                        <i class="fa-solid fa-hourglass-half text-sky-600 text-lg"></i>
+                        <h3 class="font-heading font-bold text-base">Próximos passos</h3>
+                    </div>
+                    <ul class="space-y-2 pl-7 text-sm text-sky-950 font-medium list-disc">
+                        <li>Troca dentária</li>
+                        <li>Acompanhamento odontológico</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== PERFIL TAB ==================== -->
+        <section id="tab-perfil" class="page-screen">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-purple-100 max-w-lg mx-auto">
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl font-heading font-extrabold text-brand-textDark">Perfil</h2>
+                    <p class="text-sm text-brand-textMuted mt-1">Essas informações ajudam a personalizar as orientações.</p>
+                </div>
+
+                <form onsubmit="saveProfile(event)" class="space-y-5">
+                    <div class="flex flex-col items-center justify-center">
+                        <div class="relative group cursor-pointer" onclick="document.getElementById('childPhotoInput').click()">
+                            <div class="w-24 h-24 rounded-full bg-brand-purpleLight border-2 border-brand-purpleSoft flex items-center justify-center overflow-hidden shadow-inner" id="profilePhotoContainer">
+                                <i class="fa-solid fa-child text-4xl text-brand-purple"></i>
+                            </div>
+                            <div class="absolute bottom-0 right-0 bg-brand-purple text-white w-7 h-7 rounded-full flex items-center justify-center text-xs shadow-md border-2 border-white">
+                                <i class="fa-solid fa-camera"></i>
+                            </div>
+                        </div>
+                        <input type="file" id="childPhotoInput" accept="image/*" class="hidden" onchange="previewChildPhoto(event)">
+                        <span class="text-[11px] text-brand-textMuted font-semibold mt-2">Toque para alterar foto</span>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-brand-textDark mb-1">Nome da criança</label>
+                            <input type="text" id="inputChildName" value="Leonardo Silva" required class="w-full bg-brand-bg/70 border border-purple-200 rounded-2xl px-4 py-3 text-sm text-brand-textDark font-semibold focus:outline-none focus:border-brand-purple transition">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-brand-textDark mb-1">Data de nascimento</label>
+                            <input type="date" id="inputBirthDate" value="2022-05-14" required class="w-full bg-brand-bg/70 border border-purple-200 rounded-2xl px-4 py-3 text-sm text-brand-textDark font-semibold focus:outline-none focus:border-brand-purple transition">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-brand-textDark mb-1">Responsável ou cuidador</label>
+                            <input type="text" id="inputCaregiver" value="Mariana Silva (Mãe)" required class="w-full bg-brand-bg/70 border border-purple-200 rounded-2xl px-4 py-3 text-sm text-brand-textDark font-semibold focus:outline-none focus:border-brand-purple transition">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-brand-purple hover:bg-brand-purpleDark text-white font-bold py-3.5 px-6 rounded-2xl shadow-md transition-all duration-200 flex items-center justify-center space-x-2 text-sm mt-6">
+                        <i class="fa-solid fa-check"></i>
+                        <span>Salvar</span>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ==================== MODULE: ESCOVAÇÃO MENU HUB ==================== -->
+        <section id="screen-escovacao" class="page-screen">
+            <div class="max-w-2xl mx-auto space-y-6">
+                <div class="flex items-center space-x-3">
+                    <button onclick="closeCurrentModule()" class="w-10 h-10 rounded-full bg-white text-brand-textDark flex items-center justify-center shadow-sm border border-purple-100 hover:bg-brand-purpleLight transition">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <div>
+                        <h2 class="text-2xl font-heading font-extrabold text-brand-textDark">Escovação</h2>
+                        <p class="text-xs text-brand-textMuted">Selecione uma opção abaixo</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div onclick="openEscovacaoSubScreen('info')" class="bg-white rounded-3xl p-5 border border-purple-100 shadow-sm hover:shadow-md hover:border-purple-300 transition cursor-pointer flex items-center space-x-4 group">
+                        <div class="w-14 h-14 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-heading font-bold text-base text-brand-textDark">Informações adicionais</h3>
+                            <p class="text-xs text-brand-textMuted">Creme dental com flúor, dosagem e frequência recomendada.</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-purple-300 text-sm"></i>
+                    </div>
+
+                    <div onclick="openEscovacaoSubScreen('passo')" class="bg-white rounded-3xl p-5 border border-purple-100 shadow-sm hover:shadow-md hover:border-purple-300 transition cursor-pointer flex items-center space-x-4 group">
+                        <div class="w-14 h-14 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition">
+                            <i class="fa-solid fa-list-check"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-heading font-bold text-base text-brand-textDark">Passo a passo</h3>
+                            <p class="text-xs text-brand-textMuted">Técnica correta de escovação, uso do fio e higienização da língua.</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-purple-300 text-sm"></i>
+                    </div>
+
+                    <div onclick="openEscovacaoSubScreen('timer')" class="bg-white rounded-3xl p-5 border border-purple-100 shadow-sm hover:shadow-md hover:border-purple-300 transition cursor-pointer flex items-center space-x-4 group">
+                        <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition">
+                            <i class="fa-solid fa-stopwatch"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-heading font-bold text-base text-brand-textDark">Iniciar escovação</h3>
+                            <p class="text-xs text-brand-textMuted">Cronômetro guiado de 2 minutos com instrução passo a passo.</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-purple-300 text-sm"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SUB-SCREEN: INFORMAÇÕES ADICIONAIS ==================== -->
+        <section id="screen-escovacao-info" class="page-screen">
+            <div class="max-w-2xl mx-auto space-y-6">
+                <div class="flex items-center space-x-3">
+                    <button onclick="backToEscovacaoMenu()" class="w-10 h-10 rounded-full bg-white text-brand-textDark flex items-center justify-center shadow-sm border border-purple-100 hover:bg-brand-purpleLight transition">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <div>
+                        <h2 class="text-2xl font-heading font-extrabold text-brand-textDark">Informações adicionais</h2>
+                        <p class="text-xs text-brand-textMuted">Guia de dosagem e creme dental</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-6 border border-purple-100 shadow-sm space-y-4">
+                    <h3 class="font-heading font-bold text-base text-brand-purpleDark">Uso do Creme Dental com Flúor</h3>
+                    <p class="text-sm text-brand-textMuted leading-relaxed">
+                        O creme dental deve conter de <strong>1.000 a 1.500 ppm de flúor</strong> desde o nascimento do primeiro dente de leite.
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                        <div class="bg-amber-50 rounded-2xl p-4 border border-amber-200 text-center">
+                            <div class="text-amber-800 font-bold text-sm mb-1">Menores de 3 anos</div>
+                            <p class="text-xs text-amber-900">Quantidade equivalente a <strong>meio grão de arroz cru</strong>.</p>
+                        </div>
+                        <div class="bg-indigo-50 rounded-2xl p-4 border border-indigo-200 text-center">
+                            <div class="text-indigo-800 font-bold text-sm mb-1">A partir de 3 anos</div>
+                            <p class="text-xs text-indigo-900">Quantidade equivalente a <strong>um grão de ervilha</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SUB-SCREEN: PASSO A PASSO ==================== -->
+        <section id="screen-escovacao-passo" class="page-screen">
+            <div class="max-w-2xl mx-auto space-y-6">
+                <div class="flex items-center space-x-3">
+                    <button onclick="backToEscovacaoMenu()" class="w-10 h-10 rounded-full bg-white text-brand-textDark flex items-center justify-center shadow-sm border border-purple-100 hover:bg-brand-purpleLight transition">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <div>
+                        <h2 class="text-2xl font-heading font-extrabold text-brand-textDark">Escovação</h2>
+                        <p class="text-xs text-brand-textMuted">Técnica e orientações práticas</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-6 border border-purple-100 shadow-sm">
+                    <h3 class="font-heading font-bold text-base text-brand-purpleDark mb-3">Fio Dental</h3>
+                    <div class="flex flex-col sm:flex-row items-center gap-4">
+                        <div class="flex-1">
+                            <p class="text-sm text-brand-textDark leading-relaxed">
+                                Precisamos usar o fio dental antes de escovar os dentes, é ele que limpa onde a escova não alcança!
+                            </p>
+                        </div>
+                        <div class="canva-placeholder w-full sm:w-40 h-28 shrink-0">
+                            <i class="fa-solid fa-tooth text-2xl mb-1"></i>
+                            <span class="text-xs">Fio Dental</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-6 border border-purple-100 shadow-sm space-y-4">
+                    <div>
+                        <h3 class="font-heading font-bold text-base text-brand-purpleDark">Passo à Passo</h3>
+                        <p class="text-xs text-brand-textMuted">Siga as orientações para uma escovação eficaz!</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div class="canva-placeholder h-32">
+                            <i class="fa-solid fa-arrows-spin text-xl mb-1"></i>
+                            <span class="text-xs">Movimentos Circulares</span>
+                        </div>
+                        <div class="canva-placeholder h-32">
+                            <i class="fa-solid fa-arrows-left-right text-xl mb-1"></i>
+                            <span class="text-xs">Vai e Vem</span>
+                        </div>
+                        <div class="canva-placeholder h-32">
+                            <i class="fa-solid fa-broom text-xl mb-1"></i>
+                            <span class="text-xs">Varredura</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 pt-2 text-sm text-brand-textDark">
+                        <div class="bg-brand-bg/60 p-3.5 rounded-2xl border border-purple-100">
+                            <strong>1.</strong> Com a boca entreaberta escove a parte externa dos dentes com movimentos circulares
+                        </div>
+                        <div class="bg-brand-bg/60 p-3.5 rounded-2xl border border-purple-100">
+                            <strong>2.</strong> Na parte de cima dos dentes, onde fazemos a mastigação, escove com movimentos de vai e vem
+                        </div>
+                        <div class="bg-brand-bg/60 p-3.5 rounded-2xl border border-purple-100">
+                            <strong>3.</strong> Na face interna, faça movimentos de varredura no sentido da gengiva para a ponta dos dentes
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-6 border border-purple-100 shadow-sm space-y-3">
+                    <h3 class="font-heading font-bold text-base text-brand-purpleDark">Língua</h3>
+                    <div class="flex flex-col sm:flex-row items-center gap-4">
+                        <div class="flex-1 space-y-2">
+                            <p class="text-sm text-brand-textDark">
+                                Não esqueça de escovar a língua, sempre de dentro pra fora
+                            </p>
+                            <p class="text-xs text-brand-textMuted font-semibold">
+                                Após a escovação, enxague a boca com água e cuspa o excesso.
+                            </p>
+                        </div>
+                        <div class="canva-placeholder w-full sm:w-40 h-28 shrink-0">
+                            <i class="fa-solid fa-face-smile-tongue text-2xl mb-1"></i>
+                            <span class="text-xs">Escovação da Língua</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SUB-SCREEN: INICIAR ESCOVAÇÃO (TIMER ROUTINE) ==================== -->
+        <section id="screen-escovacao-timer" class="page-screen">
+            <div class="max-w-md mx-auto space-y-6">
+                <div class="flex items-center space-x-3">
+                    <button onclick="backToEscovacaoMenu()" class="w-10 h-10 rounded-full bg-white text-brand-textDark flex items-center justify-center shadow-sm border border-purple-100 hover:bg-brand-purpleLight transition">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <div>
+                        <h2 class="text-2xl font-heading font-extrabold text-brand-textDark">Escovação</h2>
+                        <p class="text-xs text-brand-textMuted">Vamos escovar?</p>
+                    </div>
+                </div>
+
+                <div id="brushingActiveView" class="bg-white rounded-3xl p-6 border border-purple-100 shadow-sm text-center space-y-5">
+                    
+                    <div class="dotted-box rounded-2xl py-4 px-6 inline-block mx-auto">
+                        <span class="text-xs font-bold uppercase tracking-widest text-brand-purple block mb-1">Tempo Restante</span>
+                        <div id="timerDisplay" class="font-heading font-extrabold text-4xl text-brand-purpleDark tracking-wider">02:00</div>
+                    </div>
+
+                    <div>
+                        <span id="phaseBadge" class="inline-block bg-indigo-100 text-indigo-800 font-extrabold text-xs px-4 py-1.5 rounded-full border border-indigo-200 transition-colors">
+                            Passo 1 de 4
+                        </span>
+                    </div>
+
+                    <p id="phaseInstruction" class="text-sm font-bold text-brand-textDark px-2 min-h-[48px] flex items-center justify-center">
+                        Escove os dentes em movimentos circulares
+                    </p>
+
+                    <div id="phaseGraphicBox" class="canva-placeholder w-full h-48 my-2 transition-colors">
+                        <i id="phaseIcon" class="fa-solid fa-arrows-spin text-3xl mb-2"></i>
+                        <span id="phaseGraphicLabel" class="text-xs">Ilustração: Movimentos Circulares</span>
+                    </div>
+
+                    <div class="pt-2">
+                        <button id="btnStartPause" onclick="toggleTimer()" class="w-full bg-brand-purple hover:bg-brand-purpleDark text-white font-bold py-3.5 px-6 rounded-2xl shadow-sm transition flex items-center justify-center space-x-2 text-sm">
+                            <i class="fa-solid fa-play" id="startPauseIcon"></i>
+                            <span id="startPauseText">Iniciar Escovação</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="brushingCompleteView" class="hidden bg-white rounded-3xl p-8 border border-purple-100 shadow-sm text-center space-y-5">
+                    <div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl mx-auto shadow-inner">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-heading font-extrabold text-2xl text-brand-textDark">Escovação concluída!</h3>
+                        <p class="text-sm text-brand-textMuted mt-1">Parabéns! Você terminou sua escovação.</p>
+                    </div>
+                    <button onclick="backToEscovacaoMenu()" class="w-full bg-brand-purple hover:bg-brand-purpleDark text-white font-bold py-3.5 px-6 rounded-2xl shadow-sm transition text-sm">
+                        Voltar ao Menu de Escovação
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== MODULE: ERUPÇÃO DENTÁRIA ==================== -->
+        <section id="screen-erupcao" class="page-screen">
+            <div class="max-w-2xl mx-auto space-y-6">
+                <div class="flex items-center space-x-3">
+                    <button onclick="closeCurrentModule()" class="w-10 h-10 rounded-full bg-white text-brand-textDark flex items-center justify-center shadow-sm border border-purple-100 hover:bg-brand-purpleLight transition">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <div>
+                        <h2 class="text-2xl font-heading font-extrabold text-brand-textDark">Erupção Dentária</h2>
+                        <p class="text-xs text-brand-textMuted">Nascimento dos primeiros dentes</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-6 border border-purple-100 shadow-sm space-y-4">
+                    <h3 class="font-heading font-bold text-base text-brand-purpleDark">Alívio dos Sintomas</h3>
+                    <p class="text-sm text-brand-textMuted leading-relaxed">
+                        Durante o nascimento dos dentes, a criança pode apresentar salivação abundante e coceira na gengiva. Mordedores gelados e massagem suave ajudam a aliviar.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== MODULE: ALIMENTAÇÃO E SAÚDE BUCAL (SELECTION HUB) ==================== -->
+        <section id="screen-alimentacao" class="page-screen">
+            <div class="max-w-2xl mx-auto space-y-6">
+                <!-- Header with Voltar button -->
+                <div class="flex items-center space-x-3">
+                    <button onclick="closeCurrentModule()" class="w-10 h-10 rounded-full bg-white text-brand-textDark flex items-center justify-center shadow-sm border border-purple-100 hover:bg-brand-purpleLight transition">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <div>
+                        <h2 class="text-2xl font-heading font-extrabold text-brand-textDark">Alimentação e Saúde Bucal</h2>
+                        <p class="text-xs text-brand-textMuted">Escolha uma opção para começar.</p>
+                    </div>
+                </div>
+
+                <!-- 4 Pastel Selection Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Card 1: Introdução -->
+                    <div onclick="openAlimentacaoSubScreen('introducao')" class="bg-purple-50/80 rounded-3xl p-6 border border-purple-200/80 shadow-sm hover:shadow-md hover:border-purple-300 transition cursor-pointer flex flex-col justify-between group min-h-[150px]">
+                        <div class="w-12 h-12 rounded-2xl bg-purple-200/60 text-purple-700 flex items-center justify-center text-xl mb-3 group-hover:scale-105 transition">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-heading font-bold text-base text-purple-950 mb-1">Introdução</h3>
+                            <p class="text-xs text-purple-700/80">Conceitos básicos sobre dieta e dentes saudáveis.</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: O que faz bem pros dentes? -->
+                    <div class="bg-emerald-50/80 rounded-3xl p-6 border border-emerald-200/80 shadow-sm hover:shadow-md hover:border-emerald-300 transition cursor-pointer flex flex-col justify-between group min-h-[150px]">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-200/60 text-emerald-700 flex items-center justify-center text-xl mb-3 group-hover:scale-105 transition">
+                            <i class="fa-solid fa-apple-whole"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-heading font-bold text-base text-emerald-950 mb-1">O que faz bem pros dentes?</h3>
+                            <p class="text-xs text-emerald-700/80">Alimentos protetores e nutritivos.</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Açúcar e risco -->
+                    <div class="bg-amber-50/80 rounded-3xl p-6 border border-amber-200/80 shadow-sm hover:shadow-md hover:border-amber-300 transition cursor-pointer flex flex-col justify-between group min-h-[150px]">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-200/60 text-amber-700 flex items-center justify-center text-xl mb-3 group-hover:scale-105 transition">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-heading font-bold text-base text-amber-950 mb-1">Açúcar e risco</h3>
+                            <p class="text-xs text-amber-700/80">Prevenção da cárie e consumo consciente.</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Hábitos alimentares -->
+                    <div class="bg-sky-50/80 rounded-3xl p-6 border border-sky-200/80 shadow-sm hover:shadow-md hover:border-sky-300 transition cursor-pointer flex flex-col justify-between group min-h-[150px]">
+                        <div class="w-12 h-12 rounded-2xl bg-sky-200/60 text-sky-700 flex items-center justify-center text-xl mb-3 group-hover:scale-105 transition">
+                            <i class="fa-solid fa-utensils"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-heading font-bold text-base text-sky-950 mb-1">Hábitos alimentares</h3>
+                            <p class="text-xs text-sky-700/80">Rotina de refeições e horários seguros.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SUB-SCREEN: INTRODUÇÃO (ALIMENTAÇÃO) ==================== -->
+        <section id="screen-alimentacao-introducao" class="page-screen">
+            <div class="max-w-2xl mx-auto space-y-6">
+                <!-- Header with Voltar button returning to Alimentação menu -->
+                <div class="flex items-center space-x-3">
+                    <button onclick="backToAlimentacaoMenu()" class="w-10 h-10 rounded-full bg-white text-brand-textDark flex items-center justify-center shadow-sm border border-purple-100 hover:bg-brand-purpleLight transition">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <div>
+                        <h2 class="text-2xl font-heading font-extrabold text-brand-textDark">Introdução</h2>
+                        <p class="text-xs text-brand-textMuted">Alimentação e Saúde Bucal</p>
+                    </div>
+                </div>
+
+                <!-- Main Content Cards -->
+                <div class="space-y-4">
+                    <!-- Main Statement Card + Image Placeholder -->
+                    <div class="bg-white rounded-3xl p-6 border border-purple-100 shadow-sm space-y-4">
+                        <div class="flex flex-col md:flex-row items-center gap-5">
+                            <div class="flex-1 space-y-2">
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-700 bg-purple-100 px-3 py-1 rounded-full inline-block">Conceito Chave</span>
+                                <h3 class="font-heading font-extrabold text-lg sm:text-xl text-brand-textDark leading-snug">
+                                    A alimentação tem impacto direto na saúde dos dentes
+                                </h3>
+                            </div>
+                            <!-- Canva Illustration Placeholder -->
+                            <div class="canva-placeholder w-full md:w-44 h-32 shrink-0">
+                                <i class="fa-solid fa-apple-whole text-3xl mb-1"></i>
+                                <span class="text-xs">Ilustração Canva</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Supporting Statement Card -->
+                    <div class="bg-purple-50/70 rounded-3xl p-6 border border-purple-200/70 shadow-sm">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-9 h-9 rounded-full bg-purple-200/80 text-purple-800 flex items-center justify-center shrink-0 mt-0.5">
+                                <i class="fa-solid fa-circle-info text-base"></i>
+                            </div>
+                            <p class="text-sm font-semibold text-purple-950 leading-relaxed pt-1">
+                                O que a criança come e quantas vezes a criança come, influencia o risco de cárie
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Closing Statement Card -->
+                    <div class="dotted-box rounded-3xl p-6 shadow-sm">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-9 h-9 rounded-full bg-white text-purple-700 flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
+                                <i class="fa-solid fa-heart text-base"></i>
+                            </div>
+                            <p class="text-sm font-bold text-purple-900 leading-relaxed pt-1">
+                                Pequenas mudanças no dia a dia podem fazer a diferença.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== MODULE: HÁBITOS E RISCOS ==================== -->
+        <section id="screen-habitos" class="page-screen">
+            <div class="max-w-2xl mx-auto space-y-6">
+                <div class="flex items-center space-x-3">
+                    <button onclick="closeCurrentModule()" class="w-10 h-10 rounded-full bg-white text-brand-textDark flex items-center justify-center shadow-sm border border-purple-100 hover:bg-brand-purpleLight transition">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <div>
+                        <h2 class="text-2xl font-heading font-extrabold text-brand-textDark">Hábitos e Riscos</h2>
+                        <p class="text-xs text-brand-textMuted">Chupeta, dedo e mamadeira noturna</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-6 border border-purple-100 shadow-sm space-y-4">
+                    <h3 class="font-heading font-bold text-base text-brand-purpleDark">Remoção de Hábitos Sucção</h3>
+                    <p class="text-sm text-brand-textMuted leading-relaxed">
+                        O uso prolongado de chupeta ou sucção de dedo após os 2 anos pode afetar o alinhamento das arcadas dentárias.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- BOTTOM NAVIGATION BAR -->
+    <nav class="bg-white border-t border-purple-100 fixed bottom-0 left-0 right-0 z-40 shadow-lg">
+        <div class="max-w-md mx-auto flex items-center justify-around py-2.5 px-4">
+            
+            <button onclick="navigateToTab('home')" id="nav-home" class="flex flex-col items-center space-y-1 text-brand-textMuted hover:text-brand-purple transition active-tab">
+                <i class="fa-solid fa-house text-lg"></i>
+                <span class="text-[11px] font-bold">Home</span>
+            </button>
+
+            <button onclick="navigateToTab('progresso')" id="nav-progresso" class="flex flex-col items-center space-y-1 text-brand-textMuted hover:text-brand-purple transition">
+                <i class="fa-solid fa-chart-line text-lg"></i>
+                <span class="text-[11px] font-bold">Progresso</span>
+            </button>
+
+            <button onclick="navigateToTab('perfil')" id="nav-perfil" class="flex flex-col items-center space-y-1 text-brand-textMuted hover:text-brand-purple transition">
+                <i class="fa-solid fa-user text-lg"></i>
+                <span class="text-[11px] font-bold">Perfil</span>
+            </button>
+
+        </div>
+    </nav>
+
+    <script>
+        let currentTab = 'home';
+        let currentActiveScreen = 'tab-home';
+
+        let timerInterval = null;
+        let timerSeconds = 120;
+        let isTimerRunning = false;
+        let currentPhase = 1;
+
+        const phases = [
+            {
+                step: 1,
+                badge: "Passo 1 de 4",
+                instruction: "Escove os dentes em movimentos circulares",
+                icon: "fa-arrows-spin",
+                label: "Ilustração: Movimentos Circulares",
+                badgeClass: "bg-indigo-100 text-indigo-800 border-indigo-200"
+            },
+            {
+                step: 2,
+                badge: "Passo 2 de 4",
+                instruction: "Na parte de cima dos dentes, onde fazemos a mastigação, escove com movimentos de vai e vem",
+                icon: "fa-arrows-left-right",
+                label: "Ilustração: Movimentos Vai e Vem",
+                badgeClass: "bg-amber-100 text-amber-800 border-amber-200"
+            },
+            {
+                step: 3,
+                badge: "Passo 3 de 4",
+                instruction: "Na face interna, faça movimentos de varredura no sentido da gengiva para a ponta dos dentes",
+                icon: "fa-broom",
+                label: "Ilustração: Varredura Interna",
+                badgeClass: "bg-sky-100 text-sky-800 border-sky-200"
+            },
+            {
+                step: 4,
+                badge: "Passo 4 de 4",
+                instruction: "Escove a língua, sempre de dentro pra fora",
+                icon: "fa-face-smile-tongue",
+                label: "Ilustração: Escovação da Língua",
+                badgeClass: "bg-emerald-100 text-emerald-800 border-emerald-200"
+            }
+        ];
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.page-screen').forEach(scr => {
+                scr.classList.remove('active');
+            });
+            const target = document.getElementById(screenId);
+            if (target) {
+                target.classList.add('active');
+                currentActiveScreen = screenId;
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function navigateToTab(tabName) {
+            pauseTimer();
+            currentTab = tabName;
+
+            document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active-tab'));
+            const activeBtn = document.getElementById(`nav-${tabName}`);
+            if (activeBtn) activeBtn.classList.add('active-tab');
+
+            showScreen(`tab-${tabName}`);
+        }
+
+        function openModule(moduleKey) {
+            if (moduleKey === 'escovacao') {
+                showScreen('screen-escovacao');
+            } else {
+                showScreen(`screen-${moduleKey}`);
+            }
+        }
+
+        function closeCurrentModule() {
+            navigateToTab(currentTab);
+        }
+
+        function openEscovacaoSubScreen(subKey) {
+            if (subKey === 'timer') {
+                resetTimerState();
+            }
+            showScreen(`screen-escovacao-${subKey}`);
+        }
+
+        function backToEscovacaoMenu() {
+            pauseTimer();
+            showScreen('screen-escovacao');
+        }
+
+        function openAlimentacaoSubScreen(subKey) {
+            showScreen(`screen-alimentacao-${subKey}`);
+        }
+
+        function backToAlimentacaoMenu() {
+            showScreen('screen-alimentacao');
+        }
+
+        function saveProfile(event) {
+            event.preventDefault();
+            const childName = document.getElementById('inputChildName').value;
+            if (childName) {
+                document.getElementById('headerChildName').innerText = `${childName.split(' ')[0]} (2 anos)`;
+            }
+            alert('Informações salvas com sucesso!');
+        }
+
+        function previewChildPhoto(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const container = document.getElementById('profilePhotoContainer');
+                    container.innerHTML = `<img src="${e.target.result}" class="w-full h-full object-cover">`;
+                    document.getElementById('headerAvatar').innerHTML = `<img src="${e.target.result}" class="w-full h-full object-cover rounded-full">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function formatTime(sec) {
+            const m = Math.floor(sec / 60).toString().padStart(2, '0');
+            const s = (sec % 60).toString().padStart(2, '0');
+            return `${m}:${s}`;
+        }
+
+        function updateTimerDisplay() {
+            document.getElementById('timerDisplay').innerText = formatTime(timerSeconds);
+        }
+
+        function updatePhaseUI() {
+            const p = phases[currentPhase - 1];
+            const badge = document.getElementById('phaseBadge');
+            badge.innerText = p.badge;
+            badge.className = `inline-block font-extrabold text-xs px-4 py-1.5 rounded-full border transition-colors ${p.badgeClass}`;
+
+            document.getElementById('phaseInstruction').innerText = p.instruction;
+            document.getElementById('phaseIcon').className = `fa-solid ${p.icon} text-3xl mb-2`;
+            document.getElementById('phaseGraphicLabel').innerText = p.label;
+        }
+
+        function resetTimerState() {
+            pauseTimer();
+            timerSeconds = 120;
+            currentPhase = 1;
             updateTimerDisplay();
-          } else {
-            clearInterval(timerInterval);
+            updatePhaseUI();
+            document.getElementById('brushingActiveView').classList.remove('hidden');
+            document.getElementById('brushingCompleteView').classList.add('hidden');
+        }
+
+        function toggleTimer() {
+            if (isTimerRunning) {
+                pauseTimer();
+            } else {
+                startTimer();
+            }
+        }
+
+        function startTimer() {
+            if (isTimerRunning) return;
+            isTimerRunning = true;
+
+            document.getElementById('startPauseText').innerText = "Pausar";
+            document.getElementById('startPauseIcon').className = "fa-solid fa-pause";
+
+            timerInterval = setInterval(() => {
+                if (timerSeconds > 0) {
+                    timerSeconds--;
+                    updateTimerDisplay();
+
+                    if (timerSeconds === 90) setPhase(2);
+                    else if (timerSeconds === 60) setPhase(3);
+                    else if (timerSeconds === 30) setPhase(4);
+
+                } else {
+                    completeBrushing();
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
             isTimerRunning = false;
-            btn.innerHTML = `<i data-lucide="play" class="w-5 h-5"></i><span>Iniciar Escovação</span>`;
-          }
-        }, 1000);
-      }
-      lucide.createIcons();
-    }
+            clearInterval(timerInterval);
+            const btnText = document.getElementById('startPauseText');
+            const btnIcon = document.getElementById('startPauseIcon');
+            if (btnText) btnText.innerText = "Iniciar Escovação";
+            if (btnIcon) btnIcon.className = "fa-solid fa-play";
+        }
 
-    function resetTimer() {
-      clearInterval(timerInterval);
-      isTimerRunning = false;
-      secondsLeft = 120;
-      updateTimerDisplay();
-      const btn = document.getElementById('btn-start-timer');
-      if (btn) btn.innerHTML = `<i data-lucide="play" class="w-5 h-5"></i><span>Iniciar Escovação</span>`;
-      lucide.createIcons();
-    }
+        function setPhase(phaseNum) {
+            currentPhase = phaseNum;
+            updatePhaseUI();
+        }
 
-    function updateTimerDisplay() {
-      const mins = Math.floor(secondsLeft / 60);
-      const secs = secondsLeft % 60;
-      const display = document.getElementById('timer-display');
-      if (display) {
-        display.innerText = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-      }
-    }
-  </script>
+        function completeBrushing() {
+            pauseTimer();
+            document.getElementById('brushingActiveView').classList.add('hidden');
+            document.getElementById('brushingCompleteView').classList.remove('hidden');
+        }
+    </script>
 </body>
 </html>
