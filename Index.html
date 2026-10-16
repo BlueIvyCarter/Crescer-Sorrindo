@@ -255,13 +255,13 @@
 
         <!-- ==================== PERFIL TAB ==================== -->
         <section id="tab-perfil" class="page-screen">
-            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-purple-100 max-w-lg mx-auto">
-                <div class="text-center mb-6">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-purple-100 max-w-lg mx-auto space-y-6">
+                <div class="text-center">
                     <h2 class="text-2xl font-heading font-extrabold text-brand-textDark">Perfil</h2>
                     <p class="text-sm text-brand-textMuted mt-1">Essas informações ajudam a personalizar as orientações.</p>
                 </div>
 
-                <form onsubmit="saveProfile(event)" class="space-y-5">
+                <div class="bg-slate-50/80 rounded-3xl p-6 border border-slate-200/80 shadow-sm space-y-5">
                     <div class="flex flex-col items-center justify-center">
                         <div class="relative group cursor-pointer" onclick="document.getElementById('childPhotoInput').click()">
                             <div class="w-24 h-24 rounded-full bg-brand-purpleLight border-2 border-brand-purpleSoft flex items-center justify-center overflow-hidden shadow-inner" id="profilePhotoContainer">
@@ -275,28 +275,28 @@
                         <span class="text-[11px] text-brand-textMuted font-semibold mt-2">Toque para alterar foto</span>
                     </div>
 
-                    <div class="space-y-4">
+                    <form onsubmit="saveProfile(event)" class="space-y-4">
                         <div>
                             <label class="block text-xs font-bold text-brand-textDark mb-1">Nome da criança</label>
-                            <input type="text" id="inputChildName" value="Leonardo Silva" required class="w-full bg-brand-bg/70 border border-purple-200 rounded-2xl px-4 py-3 text-sm text-brand-textDark font-semibold focus:outline-none focus:border-brand-purple transition">
+                            <input type="text" id="inputChildName" value="Leonardo Silva" required class="w-full bg-white border border-purple-200 rounded-2xl px-4 py-3 text-sm text-brand-textDark font-semibold focus:outline-none focus:border-brand-purple transition shadow-sm">
                         </div>
 
                         <div>
                             <label class="block text-xs font-bold text-brand-textDark mb-1">Data de nascimento</label>
-                            <input type="date" id="inputBirthDate" value="2022-05-14" required class="w-full bg-brand-bg/70 border border-purple-200 rounded-2xl px-4 py-3 text-sm text-brand-textDark font-semibold focus:outline-none focus:border-brand-purple transition">
+                            <input type="date" id="inputBirthDate" value="2022-05-14" required class="w-full bg-white border border-purple-200 rounded-2xl px-4 py-3 text-sm text-brand-textDark font-semibold focus:outline-none focus:border-brand-purple transition shadow-sm">
                         </div>
 
                         <div>
                             <label class="block text-xs font-bold text-brand-textDark mb-1">Responsável ou cuidador</label>
-                            <input type="text" id="inputCaregiver" value="Mariana Silva (Mãe)" required class="w-full bg-brand-bg/70 border border-purple-200 rounded-2xl px-4 py-3 text-sm text-brand-textDark font-semibold focus:outline-none focus:border-brand-purple transition">
+                            <input type="text" id="inputCaregiver" value="Mariana Silva (Mãe)" required class="w-full bg-white border border-purple-200 rounded-2xl px-4 py-3 text-sm text-brand-textDark font-semibold focus:outline-none focus:border-brand-purple transition shadow-sm">
                         </div>
-                    </div>
 
-                    <button type="submit" class="w-full bg-brand-purple hover:bg-brand-purpleDark text-white font-bold py-3.5 px-6 rounded-2xl shadow-md transition-all duration-200 flex items-center justify-center space-x-2 text-sm mt-6">
-                        <i class="fa-solid fa-check"></i>
-                        <span>Salvar</span>
-                    </button>
-                </form>
+                        <button type="submit" class="w-full bg-brand-purple hover:bg-brand-purpleDark text-white font-bold py-3.5 px-6 rounded-2xl shadow-md transition-all duration-200 flex items-center justify-center space-x-2 text-sm mt-6">
+                            <i class="fa-solid fa-check"></i>
+                            <span>Salvar</span>
+                        </button>
+                    </form>
+                </div>
             </div>
         </section>
 
@@ -548,7 +548,6 @@
         <!-- ==================== MODULE: ALIMENTAÇÃO E SAÚDE BUCAL (SELECTION HUB) ==================== -->
         <section id="screen-alimentacao" class="page-screen">
             <div class="max-w-2xl mx-auto space-y-6">
-                <!-- Header with Voltar button -->
                 <div class="flex items-center space-x-3">
                     <button onclick="closeCurrentModule()" class="w-10 h-10 rounded-full bg-white text-brand-textDark flex items-center justify-center shadow-sm border border-purple-100 hover:bg-brand-purpleLight transition">
                         <i class="fa-solid fa-arrow-left"></i>
@@ -559,7 +558,6 @@
                     </div>
                 </div>
 
-                <!-- 4 Pastel Selection Cards -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <!-- Card 1: Introdução -->
                     <div onclick="openAlimentacaoSubScreen('introducao')" class="bg-purple-50/80 rounded-3xl p-6 border border-purple-200/80 shadow-sm hover:shadow-md hover:border-purple-300 transition cursor-pointer flex flex-col justify-between group min-h-[150px]">
@@ -573,7 +571,7 @@
                     </div>
 
                     <!-- Card 2: O que faz bem pros dentes? -->
-                    <div class="bg-emerald-50/80 rounded-3xl p-6 border border-emerald-200/80 shadow-sm hover:shadow-md hover:border-emerald-300 transition cursor-pointer flex flex-col justify-between group min-h-[150px]">
+                    <div onclick="openAlimentacaoSubScreen('fazbem')" class="bg-emerald-50/80 rounded-3xl p-6 border border-emerald-200/80 shadow-sm hover:shadow-md hover:border-emerald-300 transition cursor-pointer flex flex-col justify-between group min-h-[150px]">
                         <div class="w-12 h-12 rounded-2xl bg-emerald-200/60 text-emerald-700 flex items-center justify-center text-xl mb-3 group-hover:scale-105 transition">
                             <i class="fa-solid fa-apple-whole"></i>
                         </div>
@@ -584,7 +582,7 @@
                     </div>
 
                     <!-- Card 3: Açúcar e risco -->
-                    <div class="bg-amber-50/80 rounded-3xl p-6 border border-amber-200/80 shadow-sm hover:shadow-md hover:border-amber-300 transition cursor-pointer flex flex-col justify-between group min-h-[150px]">
+                    <div onclick="openAlimentacaoSubScreen('acucar')" class="bg-amber-50/80 rounded-3xl p-6 border border-amber-200/80 shadow-sm hover:shadow-md hover:border-amber-300 transition cursor-pointer flex flex-col justify-between group min-h-[150px]">
                         <div class="w-12 h-12 rounded-2xl bg-amber-200/60 text-amber-700 flex items-center justify-center text-xl mb-3 group-hover:scale-105 transition">
                             <i class="fa-solid fa-triangle-exclamation"></i>
                         </div>
@@ -595,7 +593,7 @@
                     </div>
 
                     <!-- Card 4: Hábitos alimentares -->
-                    <div class="bg-sky-50/80 rounded-3xl p-6 border border-sky-200/80 shadow-sm hover:shadow-md hover:border-sky-300 transition cursor-pointer flex flex-col justify-between group min-h-[150px]">
+                    <div onclick="openAlimentacaoSubScreen('habitos')" class="bg-sky-50/80 rounded-3xl p-6 border border-sky-200/80 shadow-sm hover:shadow-md hover:border-sky-300 transition cursor-pointer flex flex-col justify-between group min-h-[150px]">
                         <div class="w-12 h-12 rounded-2xl bg-sky-200/60 text-sky-700 flex items-center justify-center text-xl mb-3 group-hover:scale-105 transition">
                             <i class="fa-solid fa-utensils"></i>
                         </div>
@@ -611,7 +609,6 @@
         <!-- ==================== SUB-SCREEN: INTRODUÇÃO (ALIMENTAÇÃO) ==================== -->
         <section id="screen-alimentacao-introducao" class="page-screen">
             <div class="max-w-2xl mx-auto space-y-6">
-                <!-- Header with Voltar button returning to Alimentação menu -->
                 <div class="flex items-center space-x-3">
                     <button onclick="backToAlimentacaoMenu()" class="w-10 h-10 rounded-full bg-white text-brand-textDark flex items-center justify-center shadow-sm border border-purple-100 hover:bg-brand-purpleLight transition">
                         <i class="fa-solid fa-arrow-left"></i>
@@ -622,9 +619,7 @@
                     </div>
                 </div>
 
-                <!-- Main Content Cards -->
                 <div class="space-y-4">
-                    <!-- Main Statement Card + Image Placeholder -->
                     <div class="bg-white rounded-3xl p-6 border border-purple-100 shadow-sm space-y-4">
                         <div class="flex flex-col md:flex-row items-center gap-5">
                             <div class="flex-1 space-y-2">
@@ -633,7 +628,6 @@
                                     A alimentação tem impacto direto na saúde dos dentes
                                 </h3>
                             </div>
-                            <!-- Canva Illustration Placeholder -->
                             <div class="canva-placeholder w-full md:w-44 h-32 shrink-0">
                                 <i class="fa-solid fa-apple-whole text-3xl mb-1"></i>
                                 <span class="text-xs">Ilustração Canva</span>
@@ -641,7 +635,6 @@
                         </div>
                     </div>
 
-                    <!-- Supporting Statement Card -->
                     <div class="bg-purple-50/70 rounded-3xl p-6 border border-purple-200/70 shadow-sm">
                         <div class="flex items-start space-x-3">
                             <div class="w-9 h-9 rounded-full bg-purple-200/80 text-purple-800 flex items-center justify-center shrink-0 mt-0.5">
@@ -653,7 +646,6 @@
                         </div>
                     </div>
 
-                    <!-- Closing Statement Card -->
                     <div class="dotted-box rounded-3xl p-6 shadow-sm">
                         <div class="flex items-start space-x-3">
                             <div class="w-9 h-9 rounded-full bg-white text-purple-700 flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
@@ -662,6 +654,184 @@
                             <p class="text-sm font-bold text-purple-900 leading-relaxed pt-1">
                                 Pequenas mudanças no dia a dia podem fazer a diferença.
                             </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SUB-SCREEN: O QUE FAZ BEM PROS DENTES? ==================== -->
+        <section id="screen-alimentacao-fazbem" class="page-screen">
+            <div class="max-w-2xl mx-auto space-y-6">
+                <div class="flex items-center space-x-3">
+                    <button onclick="backToAlimentacaoMenu()" class="w-10 h-10 rounded-full bg-white text-brand-textDark flex items-center justify-center shadow-sm border border-purple-100 hover:bg-brand-purpleLight transition">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <div>
+                        <h2 class="text-2xl font-heading font-extrabold text-brand-textDark">O que faz bem pros dentes?</h2>
+                        <p class="text-xs text-brand-textMuted">Escolhas saudáveis fazem bem para todo o nosso corpo</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="bg-white rounded-3xl p-6 border border-purple-100 shadow-sm space-y-4">
+                        <div class="flex flex-col md:flex-row items-center gap-5">
+                            <div class="flex-1 space-y-2">
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full inline-block">Alimentos Naturais</span>
+                                <p class="text-sm sm:text-base font-bold text-brand-textDark leading-relaxed">
+                                    Prefira alimentos in natura ou minimamente processados
+                                </p>
+                            </div>
+                            <div class="canva-placeholder w-full md:w-44 h-32 shrink-0">
+                                <i class="fa-solid fa-carrot text-3xl mb-1"></i>
+                                <span class="text-xs">Ilustração Canva</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-emerald-50/70 rounded-3xl p-6 border border-emerald-200/70 shadow-sm space-y-4">
+                        <div class="flex flex-col md:flex-row items-center gap-5">
+                            <div class="flex-1 space-y-2">
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-emerald-800 bg-emerald-200/80 px-3 py-1 rounded-full inline-block">Água</span>
+                                <p class="text-sm font-semibold text-emerald-950 leading-relaxed">
+                                    Prefira água no dia a dia. Ela ajuda a manter o corpo hidratado e faz bem para a saúde.
+                                </p>
+                                <p class="text-[11px] font-semibold text-emerald-700/80 pt-1">
+                                    Fonte: Ministério da Saúde, 2014.
+                                </p>
+                            </div>
+                            <div class="canva-placeholder w-full md:w-44 h-32 shrink-0">
+                                <i class="fa-solid fa-glass-water text-3xl mb-1"></i>
+                                <span class="text-xs">Ilustração Canva</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SUB-SCREEN: AÇÚCAR E RISCO ==================== -->
+        <section id="screen-alimentacao-acucar" class="page-screen">
+            <div class="max-w-2xl mx-auto space-y-6">
+                <div class="flex items-center space-x-3">
+                    <button onclick="backToAlimentacaoMenu()" class="w-10 h-10 rounded-full bg-white text-brand-textDark flex items-center justify-center shadow-sm border border-purple-100 hover:bg-brand-purpleLight transition">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <div>
+                        <h2 class="text-2xl font-heading font-extrabold text-brand-textDark">Açúcar e risco</h2>
+                        <p class="text-xs text-brand-textMuted">Prevenção do consumo e cárie</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="bg-white rounded-3xl p-6 border border-purple-100 shadow-sm space-y-4">
+                        <div class="flex flex-col md:flex-row items-center gap-5">
+                            <div class="flex-1 space-y-2">
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-amber-800 bg-amber-100 px-3 py-1 rounded-full inline-block">Evite o açúcar</span>
+                                <p class="text-sm sm:text-base font-bold text-brand-textDark leading-relaxed">
+                                    Evitar o açúcar é essencial para prevenir cáries.
+                                </p>
+                            </div>
+                            <div class="canva-placeholder w-full md:w-44 h-32 shrink-0">
+                                <i class="fa-solid fa-ban text-3xl mb-1"></i>
+                                <span class="text-xs">Ilustração Canva</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-amber-50/70 rounded-3xl p-6 border border-amber-200/70 shadow-sm space-y-4">
+                        <div class="flex flex-col md:flex-row items-center gap-5">
+                            <div class="flex-1 space-y-2">
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-amber-900 bg-amber-200/80 px-3 py-1 rounded-full inline-block">Frequência</span>
+                                <p class="text-sm font-semibold text-amber-950 leading-relaxed">
+                                    Quanto mais vezes a criança consome açúcar ao longo do dia, maior pode ser o risco de cárie.
+                                </p>
+                            </div>
+                            <div class="canva-placeholder w-full md:w-44 h-32 shrink-0">
+                                <i class="fa-solid fa-clock-rotate-left text-3xl mb-1"></i>
+                                <span class="text-xs">Ilustração Canva</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-6 border border-purple-100 shadow-sm space-y-4">
+                        <div class="flex flex-col md:flex-row items-center gap-5">
+                            <div class="flex-1 space-y-2">
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-rose-800 bg-rose-100 px-3 py-1 rounded-full inline-block">Açúcar escondido</span>
+                                <p class="text-sm font-semibold text-brand-textDark leading-relaxed">
+                                    Alguns alimentos que parecem saudáveis podem conter açúcar ou favorecer o consumo frequente de açúcar.
+                                </p>
+                            </div>
+                            <div class="canva-placeholder w-full md:w-44 h-32 shrink-0">
+                                <i class="fa-solid fa-box-open text-3xl mb-1"></i>
+                                <span class="text-xs">Ilustração Canva</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dotted-box rounded-3xl p-6 shadow-sm space-y-4">
+                        <div class="flex flex-col md:flex-row items-center gap-5">
+                            <div class="flex-1 space-y-2">
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-900 bg-purple-200 px-3 py-1 rounded-full inline-block">Alimentos pastosos</span>
+                                <p class="text-sm font-bold text-purple-950 leading-relaxed">
+                                    Alimentos pastosos, como mingau, quando oferecidos com frequência, podem aumentar o risco de cárie.
+                                </p>
+                            </div>
+                            <div class="canva-placeholder w-full md:w-44 h-32 shrink-0">
+                                <i class="fa-solid fa-bowl-food text-3xl mb-1"></i>
+                                <span class="text-xs">Ilustração Canva</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SUB-SCREEN: HÁBITOS ALIMENTARES ==================== -->
+        <section id="screen-alimentacao-habitos" class="page-screen">
+            <div class="max-w-2xl mx-auto space-y-6">
+                <!-- Header with Voltar button -->
+                <div class="flex items-center space-x-3">
+                    <button onclick="backToAlimentacaoMenu()" class="w-10 h-10 rounded-full bg-white text-brand-textDark flex items-center justify-center shadow-sm border border-purple-100 hover:bg-brand-purpleLight transition">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <div>
+                        <h2 class="text-2xl font-heading font-extrabold text-brand-textDark">Hábitos alimentares</h2>
+                        <p class="text-xs text-brand-textMuted">Algumas práticas simples ajudam a manter os dentes saudáveis</p>
+                    </div>
+                </div>
+
+                <!-- Content Sections -->
+                <div class="space-y-4">
+                    <!-- Section 1: Evite comer fora de hora -->
+                    <div class="bg-white rounded-3xl p-6 border border-purple-100 shadow-sm space-y-4">
+                        <div class="flex flex-col md:flex-row items-center gap-5">
+                            <div class="flex-1 space-y-2">
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-sky-800 bg-sky-100 px-3 py-1 rounded-full inline-block">Evite comer fora de hora</span>
+                                <p class="text-sm sm:text-base font-bold text-brand-textDark leading-relaxed">
+                                    Prefira oferecer os alimentos nos horários das refeições. Comer várias vezes ao dia pode aumentar o risco de cárie.
+                                </p>
+                            </div>
+                            <div class="canva-placeholder w-full md:w-44 h-32 shrink-0">
+                                <i class="fa-solid fa-utensils text-3xl mb-1"></i>
+                                <span class="text-xs">Ilustração Canva</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Horários definidos -->
+                    <div class="bg-sky-50/70 rounded-3xl p-6 border border-sky-200/70 shadow-sm space-y-4">
+                        <div class="flex flex-col md:flex-row items-center gap-5">
+                            <div class="flex-1 space-y-2">
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-sky-900 bg-sky-200/80 px-3 py-1 rounded-full inline-block">Horários definidos</span>
+                                <p class="text-sm font-semibold text-sky-950 leading-relaxed">
+                                    Prefira horários definidos para as refeições.
+                                </p>
+                            </div>
+                            <div class="canva-placeholder w-full md:w-44 h-32 shrink-0">
+                                <i class="fa-solid fa-clock text-3xl mb-1"></i>
+                                <span class="text-xs">Ilustração Canva</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -684,7 +854,7 @@
                 <div class="bg-white rounded-3xl p-6 border border-purple-100 shadow-sm space-y-4">
                     <h3 class="font-heading font-bold text-base text-brand-purpleDark">Remoção de Hábitos Sucção</h3>
                     <p class="text-sm text-brand-textMuted leading-relaxed">
-                        O uso prolongado de chupeta ou sucção de dedo após os 2 anos pode afetar o alinhamento das arcadas dentárias.
+                        O uso prolongado de chupeta ou sucção de dedo após o 2 anos pode afetar o alinhamento das arcadas dentárias.
                     </p>
                 </div>
             </div>
